@@ -1,0 +1,12 @@
+
+package com.mycompany.gestion.juegos.model.enums;
+
+/**
+ *
+ * @author ronald
+ */
+public enum RolUsuario {
+    ADMIN,
+    EMPRESA,
+    GAMER
+}

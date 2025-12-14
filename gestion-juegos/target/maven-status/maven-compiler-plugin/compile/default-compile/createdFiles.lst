@@ -1,0 +1,9 @@
+com/mycompany/gestion/juegos/service/UsuarioService.class
+com/mycompany/gestion/juegos/resources/DBConnectionSingleton.class
+com/mycompany/gestion/juegos/dao/UsuarioDAO.class
+com/mycompany/gestion/juegos/controller/UsuarioController.class
+com/mycompany/gestion/juegos/model/Usuario.class
+com/mycompany/gestion/juegos/resources/JakartaEE11Resource.class
+com/mycompany/gestion/juegos/JakartaRestConfiguration.class
+com/mycompany/gestion/juegos/model/enums/RolUsuario.class
+com/mycompany/gestion/juegos/dto/UsuarioResponseDTO.class
