@@ -8,13 +8,16 @@ com/mycompany/gestion/juegos/dao/VideojuegoDAO.class
 com/mycompany/gestion/juegos/service/EmpresaService.class
 com/mycompany/gestion/juegos/dao/EmpresaDAO.class
 com/mycompany/gestion/juegos/service/JuegoCategoriaService.class
+com/mycompany/gestion/juegos/dao/CarteraDAO.class
 com/mycompany/gestion/juegos/controller/EmpresaController.class
 com/mycompany/gestion/juegos/model/enums/RolEmpresa.class
 com/mycompany/gestion/juegos/dto/UsuarioResponseDTO.class
 com/mycompany/gestion/juegos/service/UsuarioService.class
+com/mycompany/gestion/juegos/model/Cartera.class
 com/mycompany/gestion/juegos/service/VideojuegoService.class
 com/mycompany/gestion/juegos/model/Empresa.class
 com/mycompany/gestion/juegos/controller/JuegoCategoriaController.class
+com/mycompany/gestion/juegos/controller/CarteraController.class
 com/mycompany/gestion/juegos/dao/UsuarioEmpresaDAO.class
 com/mycompany/gestion/juegos/service/RegistroEmpresaService.class
 com/mycompany/gestion/juegos/service/UsuarioEmpresaService.class
@@ -29,4 +32,5 @@ com/mycompany/gestion/juegos/dao/JuegoCategoriaDAO.class
 com/mycompany/gestion/juegos/controller/UsuarioController.class
 com/mycompany/gestion/juegos/model/Usuario.class
 com/mycompany/gestion/juegos/resources/JakartaEE11Resource.class
+com/mycompany/gestion/juegos/service/CarteraService.class
 com/mycompany/gestion/juegos/model/enums/RolUsuario.class

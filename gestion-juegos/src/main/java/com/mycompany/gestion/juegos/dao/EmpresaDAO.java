@@ -37,9 +37,7 @@ public class EmpresaDAO {
         }
     }
 
-    /**
-     * Busca una empresa por ID.
-     */
+    //Busca una empresa por ID
     public Empresa buscarPorId(int idEmpresa) {
 
         String sql = "SELECT * FROM empresa WHERE id_empresa = ? AND estado = 1";
@@ -60,9 +58,7 @@ public class EmpresaDAO {
         return null;
     }
 
-    /**
-     * Busca empresas por nombre (búsqueda parcial).
-     */
+    //Busca empresas por nombre (búsqueda parcial)
     public List<Empresa> buscarPorNombre(String nombre) {
 
         String sql = """
@@ -88,9 +84,7 @@ public class EmpresaDAO {
         return empresas;
     }
 
-    /**
-     * Actualiza los datos generales de la empresa.
-     */
+    //ctualiza los datos generales de la empresa
     public boolean actualizar(Empresa empresa) {
 
         String sql = """
@@ -114,9 +108,7 @@ public class EmpresaDAO {
         }
     }
 
-    /**
-     * Actualiza el porcentaje de comisión específico de la empresa.
-     */
+    //Actualiza el porcentaje de comisión específico de la empresa
     public boolean actualizarComision(int idEmpresa, java.math.BigDecimal porcentaje) {
 
         String sql = """
@@ -139,9 +131,7 @@ public class EmpresaDAO {
         }
     }
 
-    /**
-     * Inactiva una empresa.
-     */
+    //Inactiva una empresa
     public boolean inactivar(int idEmpresa) {
 
         String sql = """
@@ -162,9 +152,6 @@ public class EmpresaDAO {
         }
     }
 
-    /**
-     * Mapea ResultSet a Empresa.
-     */
     private Empresa mapear(ResultSet rs) throws SQLException {
 
         Empresa e = new Empresa();

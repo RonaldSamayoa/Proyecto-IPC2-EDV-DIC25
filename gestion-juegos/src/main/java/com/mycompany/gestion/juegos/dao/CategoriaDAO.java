@@ -131,7 +131,7 @@ public class CategoriaDAO {
         }
     }
 
-    //Mapea ResultSet a Categoria
+    //Mapea a Categoria
     private Categoria mapear(ResultSet rs) throws SQLException {
 
         Categoria c = new Categoria();

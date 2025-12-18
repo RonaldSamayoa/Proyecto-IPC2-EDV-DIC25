@@ -13,10 +13,8 @@ public class UsuarioService {
         this.usuarioDAO = new UsuarioDAO();
     }
 
-    /**
-     * Registra un nuevo usuario en el sistema.
-     * Valida que el correo y el nickname no estén en uso.
-     */
+    //Registra un nuevo usuario en el sistema.
+    //Valida que el correo y el nickname no estén en uso
     public boolean registrarUsuario(Usuario usuario) {
 
         // Validar correo duplicado
@@ -42,9 +40,7 @@ public class UsuarioService {
         return usuarioDAO.insertarUsuario(usuario);
     }
 
-    /**
-     * Autentica a un usuario por correo y contraseña.
-     */
+    //Autentica a un usuario por correo y password
     public Usuario autenticar(String correo, String password) {
 
         Usuario usuario = usuarioDAO.buscarPorCorreo(correo);
@@ -61,23 +57,16 @@ public class UsuarioService {
         return usuario;
     }
 
-    /**
-     * Obtiene un usuario activo por su identificador.
-     */
+    // Obtiene un usuario activo por su identificador
     public Usuario obtenerPorId(int idUsuario) {
         return usuarioDAO.buscarPorId(idUsuario);
     }
 
-    /**
-     * Obtiene un usuario activo por su nickname.
-     */
+    //Obtiene un usuario activo por su nickname
     public Usuario obtenerPorNickname(String nickname) {
         return usuarioDAO.buscarPorNickname(nickname);
     }
 
-    /**
-     * Desactiva lógicamente un usuario del sistema.
-     */
     public boolean desactivarUsuario(int idUsuario) {
         return usuarioDAO.desactivarUsuario(idUsuario);
     }
