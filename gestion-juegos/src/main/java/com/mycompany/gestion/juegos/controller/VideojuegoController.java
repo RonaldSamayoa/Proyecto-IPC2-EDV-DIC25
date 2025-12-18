@@ -1,5 +1,6 @@
 package com.mycompany.gestion.juegos.controller;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mycompany.gestion.juegos.model.Videojuego;
 import com.mycompany.gestion.juegos.service.VideojuegoService;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 /**
  *
  * @author ronald
@@ -19,7 +21,10 @@ public class VideojuegoController extends HttpServlet {
     @Override
     public void init() {
         service = new VideojuegoService();
-        gson = new Gson();
+
+        gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd") 
+                .create();
     }
 
     @Override
@@ -27,6 +32,7 @@ public class VideojuegoController extends HttpServlet {
             throws IOException {
 
         resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
 
         Videojuego v = gson.fromJson(req.getReader(), Videojuego.class);
 
@@ -44,6 +50,7 @@ public class VideojuegoController extends HttpServlet {
             throws IOException {
 
         resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
 
         if (req.getParameter("id") != null) {
             int id = Integer.parseInt(req.getParameter("id"));
@@ -66,6 +73,7 @@ public class VideojuegoController extends HttpServlet {
             throws IOException {
 
         resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
 
         Videojuego v = gson.fromJson(req.getReader(), Videojuego.class);
 
@@ -82,6 +90,7 @@ public class VideojuegoController extends HttpServlet {
             throws IOException {
 
         resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
 
         int id = Integer.parseInt(req.getParameter("id"));
         boolean activo = Boolean.parseBoolean(req.getParameter("activo"));
