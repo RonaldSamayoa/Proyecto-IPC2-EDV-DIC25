@@ -13,13 +13,17 @@ import java.util.List;
 public class CalificacionService {
     private final CalificacionDAO calificacionDAO = new CalificacionDAO();
     private final BibliotecaDAO bibliotecaDAO = new BibliotecaDAO();
+    
+    private boolean valorValido(int valor) {
+        return valor >= 1 && valor <= 5;
+    }
 
-    /**
-     * Crear o actualizar una calificación
-     * Regla: el usuario DEBE tener el juego en su biblioteca
-     */
     // Crear calificación (solo si compró el juego)
     public boolean crear(int idUsuario, int idJuego, int valor) {
+        if (!valorValido(valor)) {
+            return false;
+        }
+
         //verificar que el usuario tenga el juego
         if (!bibliotecaDAO.existeEnBiblioteca(idUsuario, idJuego)) {
             return false;
@@ -36,7 +40,10 @@ public class CalificacionService {
 
     // Actualizar calificación existente
     public boolean actualizar(int idCalificacion, int valor) {
-
+        if (!valorValido(valor)) {
+            return false;
+        }
+        
         Calificacion c = new Calificacion();
         c.setIdCalificacion(idCalificacion);
         c.setValor(valor);
