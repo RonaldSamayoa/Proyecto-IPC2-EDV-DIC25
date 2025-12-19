@@ -5,13 +5,12 @@ import com.mycompany.gestion.juegos.dao.UsuarioEmpresaDAO;
 import com.mycompany.gestion.juegos.model.Empresa;
 import com.mycompany.gestion.juegos.model.Usuario;
 import com.mycompany.gestion.juegos.model.UsuarioEmpresa;
-import com.mycompany.gestion.juegos.model.enums.RolEmpresa;
 import com.mycompany.gestion.juegos.model.enums.RolUsuario;
 import java.util.List;
 
 /**
  * Servicio que coordina el registro de una empresa
- * junto con su primer usuario administrador.
+ * junto con su primer usuario
  */
 public class RegistroEmpresaService {
     private final EmpresaDAO empresaDAO;
@@ -24,8 +23,8 @@ public class RegistroEmpresaService {
         this.usuarioEmpresaDAO = new UsuarioEmpresaDAO();
     }
 
-    // Registra una empresa y su usuario administrador
-    public boolean registrarEmpresaConAdmin(Empresa empresa, Usuario usuarioAdmin) {
+    // Registra una empresa y su usuario 
+    public boolean registrarEmpresaConUsuario(Empresa empresa, Usuario usuario) {
 
         /* 1. Insertar empresa */
         boolean empresaInsertada = empresaDAO.insertar(empresa);
@@ -40,26 +39,25 @@ public class RegistroEmpresaService {
         }
         Empresa empresaBD = empresas.get(0);
 
-        /* 3. Insertar usuario administrador */
-        usuarioAdmin.setRol(RolUsuario.EMPRESA);
-        usuarioAdmin.setEstado(true);
+        /* 3. Insertar usuario */
+        usuario.setRol(RolUsuario.EMPRESA);
+        usuario.setEstado(true);
 
-        boolean usuarioInsertado = usuarioDAO.insertarUsuario(usuarioAdmin);
+        boolean usuarioInsertado = usuarioDAO.insertarUsuario(usuario);
         if (!usuarioInsertado) {
             return false;
         }
 
         /* 4. Obtener usuario recién creado */
-        Usuario usuarioBD = usuarioDAO.buscarPorCorreo(usuarioAdmin.getCorreo());
+        Usuario usuarioBD = usuarioDAO.buscarPorCorreo(usuario.getCorreo());
         if (usuarioBD == null) {
             return false;
         }
 
-        /* 5. Relacionar usuario como ADMIN de la empresa */
+        /* 5. Relacionar usuario con empresa */
         UsuarioEmpresa ue = new UsuarioEmpresa();
         ue.setIdUsuario(usuarioBD.getIdUsuario());
         ue.setIdEmpresa(empresaBD.getIdEmpresa());
-        ue.setRolEmpresa(RolEmpresa.ADMIN);
 
         return usuarioEmpresaDAO.insertar(ue);
     }

@@ -1,0 +1,20 @@
+<h2>Login</h2>
+
+<form>
+  <label>Correo</label><br>
+  <input
+    type="email"
+    [(ngModel)]="datosLogin.correo"
+    name="correo"
+  /><br><br>
+
+  <label>Password</label><br>
+  <input
+    type="password"
+    [(ngModel)]="datosLogin.password"
+    name="password"
+  /><br><br>
+
+  <button type="button" (click)="login()">Ingresar</button>
+</form>
+<p *ngIf="mensaje">{{ mensaje }}</p>

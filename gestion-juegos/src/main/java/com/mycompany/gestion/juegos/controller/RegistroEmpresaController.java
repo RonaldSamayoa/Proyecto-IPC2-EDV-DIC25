@@ -65,7 +65,7 @@ public class RegistroEmpresaController extends HttpServlet {
             usuario.setImagenPerfil(null);
             usuario.setBibliotecaPublica(true);
 
-            boolean ok = registroService.registrarEmpresaConAdmin(empresa, usuario);
+            boolean ok = registroService.registrarEmpresaConUsuario(empresa, usuario);
 
             if (ok) {
                 response.setStatus(HttpServletResponse.SC_CREATED);

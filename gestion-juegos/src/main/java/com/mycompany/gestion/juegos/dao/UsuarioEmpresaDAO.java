@@ -1,6 +1,5 @@
 package com.mycompany.gestion.juegos.dao;
 import com.mycompany.gestion.juegos.model.UsuarioEmpresa;
-import com.mycompany.gestion.juegos.model.enums.RolEmpresa;
 import com.mycompany.gestion.juegos.resources.DBConnectionSingleton;
 
 import java.sql.*;
@@ -15,8 +14,8 @@ public class UsuarioEmpresaDAO {
 
         String sql = """
             INSERT INTO usuario_empresa
-            (id_usuario, id_empresa, rol_empresa)
-            VALUES (?, ?, ?)
+            (id_usuario, id_empresa)
+            VALUES (?, ?)
         """;
 
         try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
@@ -24,7 +23,6 @@ public class UsuarioEmpresaDAO {
 
             ps.setInt(1, ue.getIdUsuario());
             ps.setInt(2, ue.getIdEmpresa());
-            ps.setString(3, ue.getRolEmpresa().name());
 
             return ps.executeUpdate() > 0;
 
@@ -52,9 +50,6 @@ public class UsuarioEmpresaDAO {
                 ue.setIdUsuarioEmpresa(rs.getInt("id_usuario_empresa"));
                 ue.setIdUsuario(rs.getInt("id_usuario"));
                 ue.setIdEmpresa(rs.getInt("id_empresa"));
-                ue.setRolEmpresa(
-                        RolEmpresa.valueOf(rs.getString("rol_empresa"))
-                );
                 lista.add(ue);
             }
 
@@ -65,15 +60,12 @@ public class UsuarioEmpresaDAO {
         return lista;
     }
 
-    // Verifica si un usuario es ADMIN de una empresa
-    public boolean esAdminEmpresa(int idUsuario, int idEmpresa) {
-
+    // Verifica si un usuario pertenece a una empresa
+    public boolean perteneceAEmpresa(int idUsuario, int idEmpresa) {
         String sql = """
             SELECT 1
             FROM usuario_empresa
-            WHERE id_usuario = ?
-              AND id_empresa = ?
-              AND rol_empresa = 'ADMIN'
+            WHERE id_usuario = ? AND id_empresa = ?
         """;
 
         try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
@@ -81,11 +73,9 @@ public class UsuarioEmpresaDAO {
 
             ps.setInt(1, idUsuario);
             ps.setInt(2, idEmpresa);
-
             return ps.executeQuery().next();
 
         } catch (SQLException e) {
-            System.err.println("Error al verificar admin de empresa");
             return false;
         }
     }
@@ -97,8 +87,7 @@ public class UsuarioEmpresaDAO {
         ue.setIdUsuarioEmpresa(rs.getInt("id_usuario_empresa"));
         ue.setIdUsuario(rs.getInt("id_usuario"));
         ue.setIdEmpresa(rs.getInt("id_empresa"));
-        ue.setRolEmpresa(RolEmpresa.valueOf(rs.getString("rol_empresa")));
-
+        
         return ue;
     }
 }

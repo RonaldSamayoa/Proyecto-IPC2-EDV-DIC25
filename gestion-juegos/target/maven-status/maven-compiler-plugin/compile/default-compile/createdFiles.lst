@@ -1,4 +1,6 @@
+com/mycompany/gestion/juegos/model/ConfiguracionComision.class
 com/mycompany/gestion/juegos/dao/UsuarioDAO.class
+com/mycompany/gestion/juegos/controller/ConfiguracionComisionController.class
 com/mycompany/gestion/juegos/dao/CategoriaDAO.class
 com/mycompany/gestion/juegos/model/Videojuego.class
 com/mycompany/gestion/juegos/model/Categoria.class
@@ -8,10 +10,12 @@ com/mycompany/gestion/juegos/dao/VideojuegoDAO.class
 com/mycompany/gestion/juegos/service/EmpresaService.class
 com/mycompany/gestion/juegos/dao/EmpresaDAO.class
 com/mycompany/gestion/juegos/service/JuegoCategoriaService.class
+com/mycompany/gestion/juegos/dao/ConfiguracionComisionDAO.class
 com/mycompany/gestion/juegos/dao/CarteraDAO.class
 com/mycompany/gestion/juegos/controller/EmpresaController.class
-com/mycompany/gestion/juegos/model/enums/RolEmpresa.class
+com/mycompany/gestion/juegos/config/CORSFilter.class
 com/mycompany/gestion/juegos/dto/UsuarioResponseDTO.class
+com/mycompany/gestion/juegos/service/ConfiguracionComisionService.class
 com/mycompany/gestion/juegos/service/UsuarioService.class
 com/mycompany/gestion/juegos/model/Cartera.class
 com/mycompany/gestion/juegos/service/VideojuegoService.class

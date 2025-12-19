@@ -1,0 +1,51 @@
+<h2>Registro</h2>
+
+<form>
+  <label>Nickname</label><br>
+  <input
+    type="text"
+    [(ngModel)]="datosRegistro.nickname"
+    name="nickname"
+  /><br><br>
+
+  <label>Correo</label><br>
+  <input
+    type="email"
+    [(ngModel)]="datosRegistro.correo"
+    name="correo"
+  /><br><br>
+
+  <label>Password</label><br>
+  <input
+    type="password"
+    [(ngModel)]="datosRegistro.password"
+    name="password"
+  /><br><br>
+
+  <label>Fecha de nacimiento</label><br>
+  <input
+    type="date"
+    [(ngModel)]="datosRegistro.fechaNacimiento"
+    name="fechaNacimiento"
+  /><br><br>
+
+  <label>País</label><br>
+  <input
+    type="text"
+    [(ngModel)]="datosRegistro.pais"
+    name="pais"
+  /><br><br>
+
+  <label>
+    <input
+      type="checkbox"
+      [(ngModel)]="datosRegistro.bibliotecaPublica"
+      name="bibliotecaPublica"
+    />
+    Biblioteca pública
+  </label><br><br>
+
+  <button type="button" (click)="registrar()">Registrar</button>
+</form>
+<p *ngIf="mensaje">{{ mensaje }}</p>
+

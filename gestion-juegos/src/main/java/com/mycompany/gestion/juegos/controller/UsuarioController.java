@@ -23,8 +23,8 @@ public class UsuarioController extends HttpServlet{
     }
 
     /**
-     * Maneja las peticiones POST relacionadas con usuarios.
-     * Se define la acción mediante el parámetro "accion".
+     * Maneja las peticiones POST relacionadas con usuarios
+     * Se define la acción mediante el parámetro "accion"
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
