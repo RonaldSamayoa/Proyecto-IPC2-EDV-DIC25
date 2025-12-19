@@ -1,13 +1,80 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.gestion.juegos.controller;
 
-/**
- *
- * @author ronald
- */
-public class ComentarioController {
-    
+import com.google.gson.Gson;
+import com.mycompany.gestion.juegos.service.ComentarioService;
+
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.util.Map;
+
+@WebServlet("/comentarios")
+public class ComentarioController extends HttpServlet {
+
+    private ComentarioService service;
+    private Gson gson;
+
+    @Override
+    public void init() {
+        service = new ComentarioService();
+        gson = new Gson();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+
+        resp.setContentType("application/json");
+
+        try {
+            Map<String, Object> body = gson.fromJson(req.getReader(), Map.class);
+
+            int idUsuario = ((Number) body.get("idUsuario")).intValue();
+            int idJuego = ((Number) body.get("idJuego")).intValue();
+            String contenido = (String) body.get("contenido");
+
+            Integer idComentarioPadre = body.get("idComentarioPadre") != null
+                    ? ((Number) body.get("idComentarioPadre")).intValue()
+                    : null;
+
+            boolean ok = service.comentar(
+                    idUsuario,
+                    idJuego,
+                    contenido,
+                    idComentarioPadre
+            );
+
+            if (ok) {
+                resp.setStatus(201);
+                resp.getWriter().write("{\"mensaje\":\"Comentario publicado\"}");
+            } else {
+                resp.setStatus(400);
+                resp.getWriter().write(
+                        "{\"error\":\"No puede comentar este juego\"}"
+                );
+            }
+
+        } catch (Exception e) {
+            resp.setStatus(400);
+            resp.getWriter().write(
+                    "{\"error\":\"Datos inválidos\"}"
+            );
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+
+        int idJuego = Integer.parseInt(req.getParameter("idJuego"));
+
+        resp.setContentType("application/json");
+        resp.getWriter().write(
+                gson.toJson(service.listarComentariosJuego(idJuego))
+        );
+    }
 }
+
