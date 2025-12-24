@@ -78,5 +78,37 @@ public class BibliotecaDAO {
 
         return lista;
     }
+    
+    // Juegos propios de un usuario
+    public List<Biblioteca> listarPropiosPorUsuario(int idUsuario) {
+        String sql = """
+            SELECT *
+            FROM biblioteca
+            WHERE id_usuario = ? AND es_propio = 1
+        """;
+
+        List<Biblioteca> lista = new ArrayList<>();
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Biblioteca b = new Biblioteca();
+                b.setIdBiblioteca(rs.getInt("id_biblioteca"));
+                b.setIdUsuario(rs.getInt("id_usuario"));
+                b.setIdJuego(rs.getInt("id_juego"));
+                b.setEsPropio(rs.getBoolean("es_propio"));
+                lista.add(b);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al listar juegos propios");
+        }
+
+        return lista;
+    }
 
 }

@@ -1,5 +1,6 @@
 /home/ronald/Escritorio/proyecto juegos ipc 2/gestion-juegos/src/main/java/com/mycompany/gestion/juegos/JakartaRestConfiguration.java
 /home/ronald/Escritorio/proyecto juegos ipc 2/gestion-juegos/src/main/java/com/mycompany/gestion/juegos/config/CORSFilter.java
+/home/ronald/Escritorio/proyecto juegos ipc 2/gestion-juegos/src/main/java/com/mycompany/gestion/juegos/controller/BibliotecaCompartidaController.java
 /home/ronald/Escritorio/proyecto juegos ipc 2/gestion-juegos/src/main/java/com/mycompany/gestion/juegos/controller/BibliotecaController.java
 /home/ronald/Escritorio/proyecto juegos ipc 2/gestion-juegos/src/main/java/com/mycompany/gestion/juegos/controller/CalificacionController.java
 /home/ronald/Escritorio/proyecto juegos ipc 2/gestion-juegos/src/main/java/com/mycompany/gestion/juegos/controller/CarteraController.java

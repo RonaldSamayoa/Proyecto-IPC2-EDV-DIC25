@@ -34,4 +34,15 @@ public class GrupoFamiliarController extends HttpServlet {
 
         resp.setStatus(ok ? 201 : 400);
     }
+    
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+
+        int idGrupo = Integer.parseInt(req.getParameter("idGrupo"));
+        int idUsuario = Integer.parseInt(req.getParameter("idUsuario"));
+
+        boolean ok = service.eliminarGrupo(idGrupo, idUsuario);
+        resp.setStatus(ok ? 200 : 403);
+    }
 }

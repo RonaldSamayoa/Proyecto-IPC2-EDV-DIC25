@@ -28,22 +28,17 @@ public class GrupoFamiliarService {
         // El creador siempre pertenece al grupo
         return grupoUsuarioDAO.insertar(idGrupo, idCreador);
     }
+    
+    public boolean eliminarGrupo(int idGrupo, int idSolicitante) {
 
-    /**
-     * Agrega un usuario a un grupo existente
-     */
-    public boolean agregarUsuario(int idGrupo, int idUsuario) {
-        //evitar duplicados
-        if (grupoUsuarioDAO.existeUsuarioEnGrupo(idGrupo, idUsuario)) {
-            return false;
-        }
-        
-        //maximo 5 integrantes
-        int cantidadActual = grupoUsuarioDAO.contarUsuariosPorGrupo(idGrupo);
-        if (cantidadActual >= 5) {
+        GrupoFamiliar grupo = grupoDAO.buscarPorId(idGrupo);
+        if (grupo == null) return false;
+
+        //Solo el creador puede eliminar
+        if (grupo.getIdCreador() != idSolicitante) {
             return false;
         }
 
-        return grupoUsuarioDAO.insertar(idGrupo, idUsuario);
+        return grupoDAO.eliminar(idGrupo);
     }
 }

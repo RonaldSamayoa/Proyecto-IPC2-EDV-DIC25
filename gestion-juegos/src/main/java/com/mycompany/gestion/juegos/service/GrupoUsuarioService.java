@@ -1,6 +1,7 @@
 package com.mycompany.gestion.juegos.service;
 
 import com.mycompany.gestion.juegos.dao.GrupoUsuarioDAO;
+import java.util.List;
 
 public class GrupoUsuarioService {
 
@@ -24,6 +25,21 @@ public class GrupoUsuarioService {
 
     public boolean quitarUsuarioDeGrupo(int idGrupo, int idUsuario) {
         return dao.eliminar(idGrupo, idUsuario);
+    }
+    
+    // Listar usuarios de un grupo
+    public List<Integer> obtenerUsuariosDeGrupo(int idGrupo) {
+        return dao.listarUsuariosPorGrupo(idGrupo);
+    }
+
+    // Listar grupos de un usuario
+    public List<Integer> obtenerGruposDeUsuario(int idUsuario) {
+        return dao.listarGruposPorUsuario(idUsuario);
+    }
+
+    // Verificar si dos usuarios comparten grupo
+    public boolean usuariosCompartenGrupo(int idUsuarioA, int idUsuarioB) {
+        return dao.compartenGrupo(idUsuarioA, idUsuarioB);
     }
 }
 

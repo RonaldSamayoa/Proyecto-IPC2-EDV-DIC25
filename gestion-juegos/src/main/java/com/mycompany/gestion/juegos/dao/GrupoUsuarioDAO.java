@@ -2,6 +2,8 @@ package com.mycompany.gestion.juegos.dao;
 import com.mycompany.gestion.juegos.resources.DBConnectionSingleton;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author ronald
@@ -89,5 +91,79 @@ public class GrupoUsuarioDAO {
             return false;
         }
     }
+    
+    public List<Integer> listarUsuariosPorGrupo(int idGrupo) {
+        String sql = """
+            SELECT id_usuario
+            FROM grupo_usuario
+            WHERE id_grupo = ?
+        """;
 
+        List<Integer> usuarios = new ArrayList<>();
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idGrupo);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                usuarios.add(rs.getInt("id_usuario"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al listar usuarios del grupo");
+        }
+
+        return usuarios;
+    }
+
+    public List<Integer> listarGruposPorUsuario(int idUsuario) {
+        String sql = """
+            SELECT id_grupo
+            FROM grupo_usuario
+            WHERE id_usuario = ?
+        """;
+
+        List<Integer> grupos = new ArrayList<>();
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                grupos.add(rs.getInt("id_grupo"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al listar grupos del usuario");
+        }
+
+        return grupos;
+    }
+    
+    public boolean compartenGrupo(int idUsuarioA, int idUsuarioB) {
+        String sql = """
+            SELECT 1
+            FROM grupo_usuario gu1
+            JOIN grupo_usuario gu2
+              ON gu1.id_grupo = gu2.id_grupo
+            WHERE gu1.id_usuario = ?
+              AND gu2.id_usuario = ?
+        """;
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuarioA);
+            ps.setInt(2, idUsuarioB);
+
+            return ps.executeQuery().next();
+
+        } catch (SQLException e) {
+            return false;
+        }
+    }
 }

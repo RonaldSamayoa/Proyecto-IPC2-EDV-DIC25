@@ -62,6 +62,7 @@ com/mycompany/gestion/juegos/model/JuegoCategoria.class
 com/mycompany/gestion/juegos/controller/RegistroEmpresaController.class
 com/mycompany/gestion/juegos/controller/GrupoUsuarioController.class
 com/mycompany/gestion/juegos/model/DetalleCompra.class
+com/mycompany/gestion/juegos/controller/BibliotecaCompartidaController.class
 com/mycompany/gestion/juegos/model/UsuarioEmpresa.class
 com/mycompany/gestion/juegos/controller/UsuarioController.class
 com/mycompany/gestion/juegos/model/Usuario.class
