@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/grupo-usuario")
 public class GrupoUsuarioController extends HttpServlet {
@@ -25,18 +26,22 @@ public class GrupoUsuarioController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
-        int idGrupo = Integer.parseInt(req.getParameter("idGrupo"));
-        int idUsuario = Integer.parseInt(req.getParameter("idUsuario"));
+        resp.setContentType("application/json");
+
+        Gson gson = new Gson();
+        Map<String, Object> body = gson.fromJson(req.getReader(), Map.class);
+
+        int idGrupo = ((Number) body.get("idGrupo")).intValue();
+        int idUsuario = ((Number) body.get("idUsuario")).intValue();
 
         boolean ok = service.agregarUsuarioAGrupo(idGrupo, idUsuario);
 
-        resp.setContentType("application/json");
-        resp.setStatus(ok ? 201 : 400);
-
         if (ok) {
-            resp.getWriter().write("{\"mensaje\":\"Usuario agregado al grupo\"}");
+            resp.setStatus(HttpServletResponse.SC_CREATED);
+            resp.getWriter().write("Usuario agregado al grupo");
         } else {
-            resp.getWriter().write("{\"error\":\"No se pudo agregar (límite o duplicado)\"}");
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write("No se pudo agregar el usuario");
         }
     }
 
@@ -52,9 +57,9 @@ public class GrupoUsuarioController extends HttpServlet {
         resp.setStatus(ok ? 200 : 400);
         
         if (ok) {
-            resp.getWriter().write("{\"mensaje\":\"Usuario eliminado del grupo\"}");
+            resp.getWriter().write("Usuario eliminado del grupo");
         } else {
-            resp.getWriter().write("{\"error\":\"No se pudo eliminar usuario del grupo\"}");
+            resp.getWriter().write("No se pudo eliminar usuario del grupo");
         }
     }
     
@@ -76,9 +81,16 @@ public class GrupoUsuarioController extends HttpServlet {
             List<Integer> grupos = service.obtenerGruposDeUsuario(idUsuario);
             resp.getWriter().write(gson.toJson(grupos));
 
-        } else {
+        } else if ("comparten".equals(tipo)) {
+            int idUsuarioA = Integer.parseInt(req.getParameter("idUsuarioA"));
+            int idUsuarioB = Integer.parseInt(req.getParameter("idUsuarioB"));
+
+            boolean comparten = service.usuariosCompartenGrupo(idUsuarioA, idUsuarioB);
+            resp.getWriter().write(gson.toJson(comparten));
+        }
+        else {
             resp.setStatus(400);
-            resp.getWriter().write("{\"error\":\"Parámetro tipo inválido\"}");
+            resp.getWriter().write("Parámetro tipo inválido");
         }
     }
 }

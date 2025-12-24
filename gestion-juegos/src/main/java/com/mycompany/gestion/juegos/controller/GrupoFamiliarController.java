@@ -33,6 +33,12 @@ public class GrupoFamiliarController extends HttpServlet {
         boolean ok = service.crearGrupo(nombre, idCreador);
 
         resp.setStatus(ok ? 201 : 400);
+        
+        if (ok) {
+            resp.getWriter().write("Grupo familiar creado con exito");
+        } else {
+            resp.getWriter().write("No se pudo crear el grupo familiar");
+        }
     }
     
     @Override
@@ -44,5 +50,11 @@ public class GrupoFamiliarController extends HttpServlet {
 
         boolean ok = service.eliminarGrupo(idGrupo, idUsuario);
         resp.setStatus(ok ? 200 : 403);
+        
+        if (ok) {
+            resp.getWriter().write("Grupo familiar eliminado con exito");
+        } else {
+            resp.getWriter().write("No se pudo eliminar grupo familiar");
+        }
     }
 }
