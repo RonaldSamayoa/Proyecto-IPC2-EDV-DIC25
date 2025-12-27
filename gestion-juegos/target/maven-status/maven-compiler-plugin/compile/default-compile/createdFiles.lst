@@ -15,6 +15,7 @@ com/mycompany/gestion/juegos/dao/CarteraDAO.class
 com/mycompany/gestion/juegos/service/ComentarioService.class
 com/mycompany/gestion/juegos/dao/CompraDAO.class
 com/mycompany/gestion/juegos/controller/EmpresaController.class
+com/mycompany/gestion/juegos/model/enums/TipoMultimedia.class
 com/mycompany/gestion/juegos/controller/CalificacionController.class
 com/mycompany/gestion/juegos/model/Compra.class
 com/mycompany/gestion/juegos/service/CalificacionService.class
@@ -31,8 +32,10 @@ com/mycompany/gestion/juegos/dao/JuegoCategoriaDAO.class
 com/mycompany/gestion/juegos/service/DetalleCompraService.class
 com/mycompany/gestion/juegos/resources/JakartaEE11Resource.class
 com/mycompany/gestion/juegos/model/enums/RolUsuario.class
+com/mycompany/gestion/juegos/controller/MultimediaController.class
 com/mycompany/gestion/juegos/model/Calificacion.class
 com/mycompany/gestion/juegos/model/Comentario.class
+com/mycompany/gestion/juegos/dao/MultimediaDAO.class
 com/mycompany/gestion/juegos/service/GrupoFamiliarService.class
 com/mycompany/gestion/juegos/dao/UsuarioDAO.class
 com/mycompany/gestion/juegos/controller/ConfiguracionComisionController.class
@@ -44,6 +47,7 @@ com/mycompany/gestion/juegos/dao/EmpresaDAO.class
 com/mycompany/gestion/juegos/service/JuegoCategoriaService.class
 com/mycompany/gestion/juegos/controller/GrupoFamiliarController.class
 com/mycompany/gestion/juegos/model/InstalacionJuego.class
+com/mycompany/gestion/juegos/service/MultimediaService.class
 com/mycompany/gestion/juegos/dao/ComentarioDAO.class
 com/mycompany/gestion/juegos/dao/GrupoFamiliarDAO.class
 com/mycompany/gestion/juegos/config/CORSFilter.class
@@ -54,6 +58,7 @@ com/mycompany/gestion/juegos/service/ConfiguracionComisionService.class
 com/mycompany/gestion/juegos/service/UsuarioService.class
 com/mycompany/gestion/juegos/model/Cartera.class
 com/mycompany/gestion/juegos/model/Biblioteca.class
+com/mycompany/gestion/juegos/model/Multimedia.class
 com/mycompany/gestion/juegos/model/Empresa.class
 com/mycompany/gestion/juegos/controller/JuegoCategoriaController.class
 com/mycompany/gestion/juegos/controller/CarteraController.class
