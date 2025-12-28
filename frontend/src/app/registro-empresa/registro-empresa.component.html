@@ -1,0 +1,71 @@
+<div class="container">
+    <h2>Registro de Empresa</h2>
+  
+    <form (ngSubmit)="registrar()">
+  
+      <h3>Datos de la Empresa</h3>
+  
+      <input
+        type="text"
+        placeholder="Nombre de la empresa"
+        [(ngModel)]="empresa.nombre"
+        name="nombreEmpresa"
+        required
+      />
+  
+      <textarea
+        placeholder="Descripción"
+        [(ngModel)]="empresa.descripcion"
+        name="descripcionEmpresa"
+        required
+      ></textarea>
+  
+      <h3>Usuario Administrador</h3>
+  
+      <input
+        type="text"
+        placeholder="Nickname"
+        [(ngModel)]="usuario.nickname"
+        name="nickname"
+        required
+      />
+  
+      <input
+        type="email"
+        placeholder="Correo"
+        [(ngModel)]="usuario.correo"
+        name="correo"
+        required
+      />
+  
+      <input
+        type="password"
+        placeholder="Contraseña"
+        [(ngModel)]="usuario.password"
+        name="password"
+        required
+      />
+  
+      <input
+        type="date"
+        [(ngModel)]="usuario.fechaNacimiento"
+        name="fechaNacimiento"
+        required
+      />
+  
+      <input
+        type="text"
+        placeholder="País"
+        [(ngModel)]="usuario.pais"
+        name="pais"
+        required
+      />
+  
+      <button type="submit">Registrar Empresa</button>
+  
+      <p class="success" *ngIf="exito">{{ exito }}</p>
+      <p class="error" *ngIf="error">{{ error }}</p>
+  
+    </form>
+  </div>
+  

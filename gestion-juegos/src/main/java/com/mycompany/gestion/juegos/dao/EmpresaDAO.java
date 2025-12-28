@@ -131,6 +131,26 @@ public class EmpresaDAO {
         }
     }
 
+    //activar o volver a activar una empresa
+    public boolean activar(int idEmpresa) {
+        String sql = """
+            UPDATE empresa
+            SET estado = 1
+            WHERE id_empresa = ?
+        """;
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idEmpresa);
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al activar empresa: " + e.getMessage());
+            return false;
+        }
+    }
+
     //Inactiva una empresa
     public boolean inactivar(int idEmpresa) {
 
@@ -148,6 +168,26 @@ public class EmpresaDAO {
 
         } catch (SQLException e) {
             System.err.println("Error al inactivar empresa: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //verificar si ya existe una empresa con el mismo nombre
+    public boolean existePorNombre(String nombre) {
+        String sql = """
+            SELECT 1 FROM empresa
+            WHERE nombre = ?
+        """;
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+
+        } catch (SQLException e) {
+            System.err.println("Error al verificar nombre empresa");
             return false;
         }
     }

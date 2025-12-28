@@ -16,9 +16,12 @@ public class EmpresaService {
     }
 
     public boolean registrarEmpresa(Empresa empresa) {
-
         if (empresa.getNombre() == null || empresa.getNombre().isBlank()) {
             return false;
+        }
+
+        if (empresaDAO.existePorNombre(empresa.getNombre())) {
+            return false; // nombre duplicado
         }
 
         return empresaDAO.insertar(empresa);
@@ -37,13 +40,28 @@ public class EmpresaService {
         return empresaDAO.buscarPorNombre(nombre);
     }
 
-    public boolean actualizarEmpresa(Empresa empresa) {
+    public boolean actualizarEmpresa(Empresa nueva) {
+        Empresa actual = empresaDAO.buscarPorId(nueva.getIdEmpresa());
 
-        if (empresa.getIdEmpresa() <= 0) {
+        if (actual == null) {
             return false;
         }
 
-        return empresaDAO.actualizar(empresa);
+        if (nueva.getDescripcion() != null) {
+            actual.setDescripcion(nueva.getDescripcion());
+        }
+
+        if (nueva.getLogo() != null) {
+            actual.setLogo(nueva.getLogo());
+        }
+
+        if (nueva.getPorcentajeComisionEspecifico() != null) {
+            actual.setPorcentajeComisionEspecifico(
+                nueva.getPorcentajeComisionEspecifico()
+            );
+        }
+
+        return empresaDAO.actualizar(actual);
     }
 
     public boolean actualizarComision(int idEmpresa, BigDecimal porcentaje) {
@@ -53,6 +71,10 @@ public class EmpresaService {
         }
 
         return empresaDAO.actualizarComision(idEmpresa, porcentaje);
+    }
+
+    public boolean activarEmpresa(int idEmpresa) {
+        return empresaDAO.activar(idEmpresa);
     }
 
     public boolean inactivarEmpresa(int idEmpresa) {
