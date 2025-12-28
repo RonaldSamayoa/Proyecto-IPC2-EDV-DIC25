@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @author ronald
  */
-@WebServlet("/categorias")
+@WebServlet("/categorias/*")
 public class CategoriaController extends HttpServlet {
     private CategoriaService categoriaService;
     private Gson gson;
@@ -31,8 +31,8 @@ public class CategoriaController extends HttpServlet {
 
         response.setContentType("application/json");
         response.getWriter().write(ok
-                ? "{\"mensaje\":\"Categoría creada\"}"
-                : "{\"error\":\"No se pudo crear\"}");
+                ? "Categoría creada"
+                : "No se pudo crear la categoria");
     }
 
     @Override
@@ -49,8 +49,16 @@ public class CategoriaController extends HttpServlet {
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        Map<String, Object> body = gson.fromJson(request.getReader(), Map.class);
+        String pathInfo = request.getPathInfo(); 
 
+        // activar o reactivar una categoria (por parametro) /categorias/activar 
+        if ("/activar".equals(pathInfo)) {
+            activarCategoria(request, response);
+            return;
+        }
+
+        // actualizar nombre /categorias
+        Map<String, Object> body = gson.fromJson(request.getReader(), Map.class);
         int id = ((Number) body.get("idCategoria")).intValue();
         String nombre = (String) body.get("nombre");
 
@@ -71,7 +79,20 @@ public class CategoriaController extends HttpServlet {
 
         response.setContentType("application/json");
         response.getWriter().write(ok
-                ? "{\"mensaje\":\"Categoría inactivada\"}"
-                : "{\"error\":\"No se pudo inactivar\"}");
+                ? "Categoría inactivada"
+                : "No se pudo inactivar");
     }
+    
+    private void activarCategoria(HttpServletRequest request, HttpServletResponse response)
+        throws IOException {
+
+        int id = Integer.parseInt(request.getParameter("id"));
+        boolean ok = categoriaService.activarCategoria(id);
+
+        response.setContentType("application/json");
+        response.getWriter().write(ok
+                ? "{\"mensaje\":\"Categoría activada\"}"
+                : "{\"error\":\"No se pudo activar\"}");
+    }
+
 }
