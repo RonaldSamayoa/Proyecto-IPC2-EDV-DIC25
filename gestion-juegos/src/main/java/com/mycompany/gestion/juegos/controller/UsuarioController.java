@@ -3,6 +3,7 @@ package com.mycompany.gestion.juegos.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.gestion.juegos.dto.UsuarioResponseDTO;
 import com.mycompany.gestion.juegos.model.Usuario;
+import com.mycompany.gestion.juegos.model.enums.RolUsuario;
 import com.mycompany.gestion.juegos.service.UsuarioService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -36,7 +37,10 @@ public class UsuarioController extends HttpServlet{
             registrarUsuario(req, resp);
         } else if ("login".equalsIgnoreCase(accion)) {
             loginUsuario(req, resp);
-        } else {
+        } else if ("crear-admin".equalsIgnoreCase(accion)) {
+            crearAdmin(req, resp);
+        }
+        else {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write("Acción no válida.");
         }
@@ -82,6 +86,27 @@ public class UsuarioController extends HttpServlet{
         UsuarioResponseDTO response = convertirAResponse(autenticado);
         resp.setContentType("application/json");
         mapper.writeValue(resp.getOutputStream(), response);
+    }
+
+    private void crearAdmin(HttpServletRequest req, HttpServletResponse resp)
+        throws IOException {
+
+        Usuario adminNuevo = mapper.readValue(req.getInputStream(), Usuario.class);
+
+        adminNuevo.setRol(RolUsuario.ADMIN);
+        adminNuevo.setBibliotecaPublica(false);
+        adminNuevo.setEstado(true);
+
+        boolean ok = usuarioService.registrarAdmin(adminNuevo);
+
+        if (!ok) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write("No se pudo crear el administrador.");
+            return;
+        }
+
+        resp.setStatus(HttpServletResponse.SC_CREATED);
+        resp.getWriter().write("Administrador creado correctamente.");
     }
 
     /**

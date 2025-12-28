@@ -37,7 +37,20 @@ public class UsuarioService {
         // Activar usuario por defecto
         usuario.setEstado(true);
 
-        return usuarioDAO.insertarUsuario(usuario);
+        boolean creado = usuarioDAO.insertarUsuario(usuario);
+        if (!creado) return false;
+
+        // 🔥 SOLO GAMER TIENE CARTERA
+        if (usuario.getRol() == RolUsuario.GAMER) {
+
+            Usuario creadoDb = usuarioDAO.buscarPorCorreo(usuario.getCorreo());
+            if (creadoDb == null) return false;
+
+            CarteraService carteraService = new CarteraService();
+            return carteraService.crearCarteraSiNoExiste(creadoDb.getIdUsuario());
+        }
+
+        return true;
     }
 
     //Autentica a un usuario por correo y password
@@ -55,6 +68,21 @@ public class UsuarioService {
         }
 
         return usuario;
+    }
+    
+    public boolean registrarAdmin(Usuario admin) {
+
+        if (admin.getRol() != RolUsuario.ADMIN) {
+            return false;
+        }
+
+        if (usuarioDAO.buscarPorCorreo(admin.getCorreo()) != null) return false;
+        if (usuarioDAO.buscarPorNickname(admin.getNickname()) != null) return false;
+
+        admin.setEstado(true);
+
+        //No se crea cartera
+        return usuarioDAO.insertarUsuario(admin);
     }
 
     // Obtiene un usuario activo por su identificador
