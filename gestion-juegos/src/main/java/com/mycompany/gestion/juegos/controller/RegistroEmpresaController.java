@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 /**
@@ -48,7 +49,11 @@ public class RegistroEmpresaController extends HttpServlet {
             empresa.setNombre((String) empresaJson.get("nombre"));
             empresa.setDescripcion((String) empresaJson.get("descripcion"));
             empresa.setLogo(null); // se podrá actualizar después
-            empresa.setPorcentajeComisionEspecifico(null);
+            empresa.setPorcentajeComisionEspecifico(
+                    empresaJson.get("porcentajeComision") != null
+                            ? new BigDecimal(empresaJson.get("porcentajeComision").toString())
+                            : null
+            );
             empresa.setEstado(true);
 
             /* Construir usuario administrador */
@@ -62,7 +67,7 @@ public class RegistroEmpresaController extends HttpServlet {
             
             usuario.setFechaNacimiento(sdf.parse(fechaStr));
             usuario.setPais((String) usuarioJson.get("pais"));
-            usuario.setImagenPerfil(null);
+            usuario.setImagenPerfil(null);//se puede actualizar despues
             usuario.setBibliotecaPublica(true);
 
             boolean ok = registroService.registrarEmpresaConUsuario(empresa, usuario);
@@ -70,19 +75,19 @@ public class RegistroEmpresaController extends HttpServlet {
             if (ok) {
                 response.setStatus(HttpServletResponse.SC_CREATED);
                 response.getWriter().write(
-                        "{\"mensaje\":\"Empresa y usuario administrador registrados correctamente\"}"
+                        "Empresa y usuario administrador registrados correctamente"
                 );
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().write(
-                        "{\"error\":\"No se pudo completar el registro\"}"
+                        "No se pudo completar el registro"
                 );
             }
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write(
-                    "{\"error\":\"Error interno del servidor\"}"
+                    "Error interno del servidor"
             );
             e.printStackTrace();
         }
