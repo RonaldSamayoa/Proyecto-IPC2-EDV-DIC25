@@ -1,7 +1,8 @@
 package com.mycompany.gestion.juegos.dao;
+import com.mycompany.gestion.juegos.dto.VideojuegoDetalleDTO;
+import com.mycompany.gestion.juegos.model.Categoria;
 import com.mycompany.gestion.juegos.model.Videojuego;
 import com.mycompany.gestion.juegos.resources.DBConnectionSingleton;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -208,4 +209,67 @@ public class VideojuegoDAO {
 
         return v;
     }
+    
+    public VideojuegoDetalleDTO obtenerDetallePorId(int idJuego) {
+        String sql = """
+            SELECT 
+                v.id_juego,
+                v.titulo,
+                v.descripcion,
+                v.precio,
+                v.requisitos_minimos,
+                v.clasificacion_edad,
+                v.fecha_lanzamiento,
+                v.id_empresa,
+                c.id_categoria,
+                c.nombre
+            FROM videojuego v
+            LEFT JOIN juego_categoria jc ON v.id_juego = jc.id_juego
+            LEFT JOIN categoria c ON jc.id_categoria = c.id_categoria AND c.estado = 1
+            WHERE v.id_juego = ? AND v.estado_venta = 1
+        """;
+
+        VideojuegoDetalleDTO dto = null;
+        List<Categoria> categorias = new ArrayList<>();
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idJuego);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                if (dto == null) {
+                    dto = new VideojuegoDetalleDTO();
+                    dto.setIdJuego(rs.getInt("id_juego"));
+                    dto.setTitulo(rs.getString("titulo"));
+                    dto.setDescripcion(rs.getString("descripcion"));
+                    dto.setPrecio(rs.getBigDecimal("precio"));
+                    dto.setRequisitosMinimos(rs.getString("requisitos_minimos"));
+                    dto.setClasificacionEdad(rs.getString("clasificacion_edad"));
+                    dto.setFechaLanzamiento(rs.getDate("fecha_lanzamiento"));
+                    dto.setIdEmpresa(rs.getInt("id_empresa"));
+                }
+
+                int idCategoria = rs.getInt("id_categoria");
+                if (!rs.wasNull()) {
+                    Categoria c = new Categoria();
+                    c.setIdCategoria(idCategoria);
+                    c.setNombre(rs.getString("nombre"));
+                    categorias.add(c);
+                }
+            }
+
+            if (dto != null) {
+                dto.setCategorias(categorias);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener detalle del videojuego: " + e.getMessage());
+        }
+
+        return dto;
+    }
+
 }

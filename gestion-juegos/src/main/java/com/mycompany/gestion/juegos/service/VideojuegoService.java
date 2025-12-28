@@ -1,6 +1,7 @@
 package com.mycompany.gestion.juegos.service;
 import com.mycompany.gestion.juegos.dao.EmpresaDAO;
 import com.mycompany.gestion.juegos.dao.VideojuegoDAO;
+import com.mycompany.gestion.juegos.dto.VideojuegoDetalleDTO;
 import com.mycompany.gestion.juegos.model.Empresa;
 import com.mycompany.gestion.juegos.model.Videojuego;
 import java.math.BigDecimal;
@@ -58,6 +59,11 @@ public class VideojuegoService {
 
     public boolean cambiarEstado(int idJuego, boolean activo) {
         return videojuegoDAO.cambiarEstado(idJuego, activo);
+    }
+    
+    //detalles de juego con categoria incluida
+    public VideojuegoDetalleDTO obtenerDetalle(int idJuego) {
+        return videojuegoDAO.obtenerDetallePorId(idJuego);
     }
     
     public boolean actualizarParcial(Videojuego nuevo) {

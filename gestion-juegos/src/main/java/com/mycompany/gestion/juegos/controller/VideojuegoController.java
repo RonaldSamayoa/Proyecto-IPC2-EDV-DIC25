@@ -1,6 +1,7 @@
 package com.mycompany.gestion.juegos.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mycompany.gestion.juegos.dto.VideojuegoDetalleDTO;
 import com.mycompany.gestion.juegos.model.Videojuego;
 import com.mycompany.gestion.juegos.service.VideojuegoService;
 import jakarta.servlet.annotation.WebServlet;
@@ -52,12 +53,33 @@ public class VideojuegoController extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
-        if (req.getParameter("id") != null) {
+        String path = req.getPathInfo(); // null, /detalle, etc.
+
+        // detalle con categorias
+        if ("/detalle".equals(path)) {
             int id = Integer.parseInt(req.getParameter("id"));
-            resp.getWriter().write(gson.toJson(service.obtenerPorId(id)));
+            VideojuegoDetalleDTO dto = service.obtenerDetalle(id);
+
+            if (dto == null) {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.getWriter().write("No existe el videojuego");
+                return;
+            }
+
+            resp.getWriter().write(gson.toJson(dto));
             return;
         }
 
+        // videojuego por id
+        if (req.getParameter("id") != null) {
+            int id = Integer.parseInt(req.getParameter("id"));
+            resp.getWriter().write(
+                    gson.toJson(service.obtenerPorId(id))
+            );
+            return;
+        }
+
+        // buscar por titulo
         if (req.getParameter("titulo") != null) {
             resp.getWriter().write(
                     gson.toJson(service.buscarPorTitulo(req.getParameter("titulo")))
@@ -65,8 +87,12 @@ public class VideojuegoController extends HttpServlet {
             return;
         }
 
-        resp.getWriter().write(gson.toJson(service.listarActivos()));
+        // listado general de activos
+        resp.getWriter().write(
+                gson.toJson(service.listarActivos())
+        );
     }
+
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp)
@@ -132,4 +158,18 @@ public class VideojuegoController extends HttpServlet {
         }
     }
 
+    private void obtenerDetalle(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+
+        int id = Integer.parseInt(req.getParameter("id"));
+        VideojuegoDetalleDTO dto = service.obtenerDetalle(id);
+
+        if (dto == null) {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            resp.getWriter().write("{\"error\":\"No encontrado\"}");
+            return;
+        }
+
+        resp.getWriter().write(gson.toJson(dto));
+    }
 }

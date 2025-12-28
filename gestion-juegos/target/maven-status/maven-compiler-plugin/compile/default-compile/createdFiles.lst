@@ -3,6 +3,7 @@ com/mycompany/gestion/juegos/dao/InstalacionJuegoDAO.class
 com/mycompany/gestion/juegos/service/GrupoUsuarioService.class
 com/mycompany/gestion/juegos/controller/CompraController.class
 com/mycompany/gestion/juegos/model/ConfiguracionComision.class
+com/mycompany/gestion/juegos/dto/VideojuegoDetalleDTO.class
 com/mycompany/gestion/juegos/dao/CategoriaDAO.class
 com/mycompany/gestion/juegos/dao/CalificacionDAO.class
 com/mycompany/gestion/juegos/controller/InstalacionJuegoController.class
@@ -16,6 +17,7 @@ com/mycompany/gestion/juegos/service/ComentarioService.class
 com/mycompany/gestion/juegos/dao/CompraDAO.class
 com/mycompany/gestion/juegos/controller/EmpresaController.class
 com/mycompany/gestion/juegos/service/BannerService.class
+com/mycompany/gestion/juegos/dto/CategoriaDTO.class
 com/mycompany/gestion/juegos/model/enums/TipoMultimedia.class
 com/mycompany/gestion/juegos/controller/CalificacionController.class
 com/mycompany/gestion/juegos/model/Compra.class
