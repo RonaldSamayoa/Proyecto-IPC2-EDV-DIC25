@@ -1,71 +1,87 @@
 <div class="container">
-    <h2>Registro de Empresa</h2>
-  
-    <form (ngSubmit)="registrar()">
-  
-      <h3>Datos de la Empresa</h3>
-  
+  <h2>Registro de Empresa</h2>
+
+  <form (ngSubmit)="registrarEmpresa()" #form="ngForm">
+
+    <h3>Datos de la Empresa</h3>
+
+    <label>
+      Nombre
       <input
         type="text"
-        placeholder="Nombre de la empresa"
         [(ngModel)]="empresa.nombre"
         name="nombreEmpresa"
         required
       />
-  
+    </label>
+
+    <label>
+      Descripción
       <textarea
-        placeholder="Descripción"
         [(ngModel)]="empresa.descripcion"
         name="descripcionEmpresa"
         required
       ></textarea>
-  
-      <h3>Usuario Administrador</h3>
-  
+    </label>
+
+    <h3>Usuario Administrador</h3>
+
+    <label>
+      Nickname
       <input
         type="text"
-        placeholder="Nickname"
         [(ngModel)]="usuario.nickname"
         name="nickname"
         required
       />
-  
+    </label>
+
+    <label>
+      Correo
       <input
         type="email"
-        placeholder="Correo"
         [(ngModel)]="usuario.correo"
         name="correo"
         required
       />
-  
+    </label>
+
+    <label>
+      Contraseña
       <input
         type="password"
-        placeholder="Contraseña"
         [(ngModel)]="usuario.password"
         name="password"
         required
       />
-  
+    </label>
+
+    <label>
+      Fecha de nacimiento
       <input
         type="date"
         [(ngModel)]="usuario.fechaNacimiento"
         name="fechaNacimiento"
         required
       />
-  
+    </label>
+
+    <label>
+      País
       <input
         type="text"
-        placeholder="País"
         [(ngModel)]="usuario.pais"
         name="pais"
         required
       />
-  
-      <button type="submit">Registrar Empresa</button>
-  
-      <p class="success" *ngIf="exito">{{ exito }}</p>
-      <p class="error" *ngIf="error">{{ error }}</p>
-  
-    </form>
-  </div>
-  
+    </label>
+
+    <button
+      type="submit"
+      [disabled]="form.invalid || cargando"
+    >
+      {{ cargando ? 'Registrando' : 'Crear Empresa' }}
+    </button>
+
+  </form>
+</div>

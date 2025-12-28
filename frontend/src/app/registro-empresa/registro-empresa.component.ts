@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ApiConfig } from '../config/api.config';
 
 @Component({
@@ -27,33 +26,32 @@ export class RegistroEmpresaComponent {
     pais: ''
   };
 
-  error = '';
-  exito = '';
+  cargando = false;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient) {}
 
-  registrar() {
+  registrarEmpresa() {
+    this.cargando = true;
+
     const body = {
       empresa: this.empresa,
       usuario: this.usuario
     };
 
-    this.http.post(`${ApiConfig.BASE_URL}/registro-empresa`, body).subscribe({
+    this.http.post(
+      `${ApiConfig.BASE_URL}/registro-empresa`,
+      body
+    ).subscribe({
       next: () => {
-        this.exito = 'Empresa registrada correctamente. Ahora puedes iniciar sesión.';
-        this.error = '';
-
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
+        this.cargando = false;
+        alert('Empresa registrada correctamente. Ahora puedes iniciar sesión.');
       },
       error: () => {
-        this.error = 'No se pudo completar el registro.';
-        this.exito = '';
+        this.cargando = false;
+        alert('Error al registrar la empresa');
       }
     });
   }
 }
+
+

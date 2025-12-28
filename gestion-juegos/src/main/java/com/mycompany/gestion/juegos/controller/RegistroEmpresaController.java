@@ -49,11 +49,7 @@ public class RegistroEmpresaController extends HttpServlet {
             empresa.setNombre((String) empresaJson.get("nombre"));
             empresa.setDescripcion((String) empresaJson.get("descripcion"));
             empresa.setLogo(null); // se podrá actualizar después
-            empresa.setPorcentajeComisionEspecifico(
-                    empresaJson.get("porcentajeComision") != null
-                            ? new BigDecimal(empresaJson.get("porcentajeComision").toString())
-                            : null
-            );
+            empresa.setPorcentajeComisionEspecifico(null); //al registrar una empresa no define por su cuenta el % de comision
             empresa.setEstado(true);
 
             /* Construir usuario administrador */
