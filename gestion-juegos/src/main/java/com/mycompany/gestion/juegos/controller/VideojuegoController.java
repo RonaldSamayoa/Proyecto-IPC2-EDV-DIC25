@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * @author ronald
  */
-@WebServlet("/videojuegos")
+@WebServlet("/videojuegos/*")
 public class VideojuegoController extends HttpServlet {
     private VideojuegoService service;
     private Gson gson;
@@ -38,10 +38,10 @@ public class VideojuegoController extends HttpServlet {
 
         if (service.registrar(v)) {
             resp.setStatus(HttpServletResponse.SC_CREATED);
-            resp.getWriter().write("{\"mensaje\":\"Videojuego registrado\"}");
+            resp.getWriter().write("Videojuego registrado");
         } else {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("{\"error\":\"Datos inválidos\"}");
+            resp.getWriter().write("Datos inválidos");
         }
     }
 
@@ -75,14 +75,15 @@ public class VideojuegoController extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
-        Videojuego v = gson.fromJson(req.getReader(), Videojuego.class);
+        String path = req.getPathInfo(); 
 
-        if (service.actualizar(v)) {
-            resp.getWriter().write("{\"mensaje\":\"Actualizado\"}");
-        } else {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("{\"error\":\"No se pudo actualizar\"}");
+        if ("/estado".equals(path)) {
+            cambiarEstado(req, resp);
+            return;
         }
+
+        // actualización normal
+        actualizarParcial(req, resp);
     }
 
     @Override
@@ -96,10 +97,39 @@ public class VideojuegoController extends HttpServlet {
         boolean activo = Boolean.parseBoolean(req.getParameter("activo"));
 
         if (service.cambiarEstado(id, activo)) {
-            resp.getWriter().write("{\"mensaje\":\"Estado actualizado\"}");
+            resp.getWriter().write("Estado actualizado");
         } else {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("{\"error\":\"No se pudo cambiar estado\"}");
+            resp.getWriter().write("No se pudo cambiar estado");
         }
     }
+    
+    private void cambiarEstado(HttpServletRequest req, HttpServletResponse resp)
+        throws IOException {
+
+        int id = Integer.parseInt(req.getParameter("id"));
+        boolean activo = Boolean.parseBoolean(req.getParameter("activo"));
+
+        boolean ok = service.cambiarEstado(id, activo);
+
+        if (ok) {
+            resp.getWriter().write("Estado actualizado");
+        } else {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write("No se pudo cambiar estado");
+        }
+    }
+
+    private void actualizarParcial(HttpServletRequest req, HttpServletResponse resp)
+        throws IOException {
+        Videojuego v = gson.fromJson(req.getReader(), Videojuego.class);
+
+        if (service.actualizarParcial(v)) {
+            resp.getWriter().write("Videojuego actualizado");
+        } else {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write("No se pudo actualizar");
+        }
+    }
+
 }

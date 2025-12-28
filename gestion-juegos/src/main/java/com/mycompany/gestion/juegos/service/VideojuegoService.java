@@ -59,4 +59,34 @@ public class VideojuegoService {
     public boolean cambiarEstado(int idJuego, boolean activo) {
         return videojuegoDAO.cambiarEstado(idJuego, activo);
     }
+    
+    public boolean actualizarParcial(Videojuego nuevo) {
+        Videojuego actual = videojuegoDAO.buscarPorId(nuevo.getIdJuego());
+        if (actual == null || !actual.isEstadoVenta()) {
+            return false;
+        }
+
+        // Solo reemplazamos si viene algo
+        if (nuevo.getTitulo() != null) {
+            actual.setTitulo(nuevo.getTitulo());
+        }
+        if (nuevo.getDescripcion() != null) {
+            actual.setDescripcion(nuevo.getDescripcion());
+        }
+        if (nuevo.getPrecio() != null) {
+            actual.setPrecio(nuevo.getPrecio());
+        }
+        if (nuevo.getRequisitosMinimos() != null) {
+            actual.setRequisitosMinimos(nuevo.getRequisitosMinimos());
+        }
+        if (nuevo.getClasificacionEdad() != null) {
+            actual.setClasificacionEdad(nuevo.getClasificacionEdad());
+        }
+        if (nuevo.getFechaLanzamiento() != null) {
+            actual.setFechaLanzamiento(nuevo.getFechaLanzamiento());
+        }
+
+        return videojuegoDAO.actualizar(actual);
+    }
+
 }
