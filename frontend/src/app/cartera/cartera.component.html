@@ -1,0 +1,14 @@
+<app-navbar-gamer></app-navbar-gamer>
+
+<div class="container">
+  <h2>Mi Cartera</h2>
+
+  <p><strong>Saldo actual:</strong> Q {{ saldo }}</p>
+
+  <label>Monto a recargar</label>
+  <input type="number" [(ngModel)]="monto" />
+
+  <button (click)="recargar()">Recargar</button>
+
+  <p>{{ mensaje }}</p>
+</div>

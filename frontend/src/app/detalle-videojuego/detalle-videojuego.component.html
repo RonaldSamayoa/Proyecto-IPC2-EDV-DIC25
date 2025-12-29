@@ -1,0 +1,60 @@
+<div class="detalle-container" *ngIf="videojuego">
+
+    <div class="header">
+      <h2 class="titulo">{{ videojuego.titulo }}</h2>
+        
+      <div class="desarrollador">
+        Desarrollado por:
+        <span>{{ videojuego.nombreEmpresa }}</span>
+      </div>
+      
+      <div class="badges">
+        <span class="badge edad">
+          {{ videojuego.clasificacionEdad || 'Sin restricción' }}
+        </span>
+      </div>
+    </div>
+  
+    <p class="descripcion">
+      {{ videojuego.descripcion }}
+    </p>
+  
+    <div class="info-grid">
+  
+      <div class="info-card precio">
+        <span class="label">Precio: </span>
+        <span class="valor">Q{{ videojuego.precio }}</span>
+      </div>
+  
+      <div class="info-card">
+        <span class="label">Lanzamiento: </span>
+        <span class="valor">
+          {{ videojuego.fechaLanzamiento | date:'longDate' }}
+        </span>
+      </div>
+  
+    </div>
+  
+    <div class="seccion">
+      <h4>Categorías</h4>
+      <div class="categorias">
+        <span
+          class="categoria"
+          *ngFor="let c of videojuego.categorias"
+        >
+          {{ c.nombre }}
+        </span>
+      </div>
+    </div>
+  
+    <div class="seccion">
+      <h4>Requisitos mínimos</h4>
+      <pre class="requisitos">
+  {{ videojuego.requisitosMinimos }}
+      </pre>
+    </div>
+  
+  </div>
+  
+  
+  

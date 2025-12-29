@@ -7,5 +7,18 @@ export class ApiConfig {
       REGISTRO: `${ApiConfig.BASE_URL}/usuarios?accion=registro`
     };
   
+    public static readonly BIBLIOTECA = {
+      LISTAR: `${ApiConfig.BASE_URL}/biblioteca`
+    };
+
+    public static readonly VIDEOJUEGOS = {
+      LISTAR: `${ApiConfig.BASE_URL}/videojuegos`,
+      DETALLE: `${ApiConfig.BASE_URL}/videojuegos/detalle`
+    };
+
+    public static readonly COMPRAS = {
+      COMPRAR: `${ApiConfig.BASE_URL}/compras`
+    };
+    
   }
   

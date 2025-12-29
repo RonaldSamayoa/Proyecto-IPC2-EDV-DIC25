@@ -1,0 +1,34 @@
+<div class="tienda-container">
+    <h2>🛒 Tienda de Videojuegos</h2>
+  
+    <p *ngIf="cargando">Cargando videojuegos...</p>
+    <p class="mensaje">{{ mensaje }}</p>
+  
+    <div class="grid">
+      <div class="card" *ngFor="let v of videojuegos">
+        <h3>
+            <a [routerLink]="['/videojuego', v.idJuego]" class="titulo-link">
+              {{ v.titulo }}
+            </a>
+          </h3>
+          
+  
+        <p class="descripcion">
+          {{ v.descripcion }}
+        </p>
+  
+        <p class="precio">
+          Q{{ v.precio }}
+        </p>
+  
+        <p class="edad">
+          Clasificación: {{ v.clasificacionEdad || 'Sin restricción' }}
+        </p>
+  
+        <button (click)="comprar(v.idJuego)">
+          Comprar
+        </button>
+      </div>
+    </div>
+  </div>
+  

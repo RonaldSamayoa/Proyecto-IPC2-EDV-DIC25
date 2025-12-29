@@ -5,6 +5,11 @@ import { WelcomeComponent } from './public/welcome/welcome.component';
 import { RegistroEmpresaComponent } from './registro-empresa/registro-empresa.component';
 import { DashboardGamerComponent } from './dashboard-gamer/dashboard-gamer.component';
 import { DashboardEmpresaComponent } from './dashboard-empresa/dashboard-empresa.component';
+import { CarteraComponent } from './cartera/cartera.component';
+import { BibliotecaComponent } from './biblioteca/biblioteca.component';
+import { TiendaComponent } from './tienda/tienda.component';
+import { DetalleVideojuegoComponent } from './detalle-videojuego/detalle-videojuego.component';
+
 
 export const routes: Routes = [
   // página de bienvenida
@@ -18,6 +23,14 @@ export const routes: Routes = [
   { path: 'dashboard-gamer', component: DashboardGamerComponent },
   { path: 'dashboard-empresa', component: DashboardEmpresaComponent },
 
+  { path: 'cartera', component: CarteraComponent },
+
+  { path: 'biblioteca', component: BibliotecaComponent },
+
+  { path: 'tienda', component: TiendaComponent },
+
+  { path: 'videojuego/:id', component: DetalleVideojuegoComponent },
+  
   // wildcard por seguridad
   { path: '**', redirectTo: '' }
 

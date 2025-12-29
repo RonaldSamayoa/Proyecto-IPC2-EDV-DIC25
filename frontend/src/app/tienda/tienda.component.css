@@ -1,0 +1,50 @@
+.tienda-container {
+    padding: 20px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+  }
+  
+  .card {
+    background: #202036;
+    color: #fff;
+    padding: 16px;
+    border-radius: 10px;
+  }
+  
+  .card button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    background: #3498db;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .card button:hover {
+    background: #2980b9;
+  }
+  
+  .precio {
+    font-weight: bold;
+  }
+  
+  .mensaje {
+    margin: 10px 0;
+  }
+
+  .titulo-link {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .titulo-link:hover {
+    text-decoration: underline;
+  }
+  
+  

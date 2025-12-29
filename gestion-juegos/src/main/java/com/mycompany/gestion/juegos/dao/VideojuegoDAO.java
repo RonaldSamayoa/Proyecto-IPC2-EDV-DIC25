@@ -221,9 +221,11 @@ public class VideojuegoDAO {
                 v.clasificacion_edad,
                 v.fecha_lanzamiento,
                 v.id_empresa,
+                e.nombre AS nombre_empresa,
                 c.id_categoria,
                 c.nombre
             FROM videojuego v
+            JOIN empresa e ON v.id_empresa = e.id_empresa
             LEFT JOIN juego_categoria jc ON v.id_juego = jc.id_juego
             LEFT JOIN categoria c ON jc.id_categoria = c.id_categoria AND c.estado = 1
             WHERE v.id_juego = ? AND v.estado_venta = 1
@@ -250,6 +252,7 @@ public class VideojuegoDAO {
                     dto.setClasificacionEdad(rs.getString("clasificacion_edad"));
                     dto.setFechaLanzamiento(rs.getDate("fecha_lanzamiento"));
                     dto.setIdEmpresa(rs.getInt("id_empresa"));
+                    dto.setNombreEmpresa(rs.getString("nombre_empresa"));
                 }
 
                 int idCategoria = rs.getInt("id_categoria");
