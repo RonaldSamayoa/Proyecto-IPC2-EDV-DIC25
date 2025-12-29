@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { VideojuegoService } from '../services/videojuego.service';
 import { CompraService } from '../services/compra.service';
 import { AuthService } from '../services/auth.service';
+import { BibliotecaService } from '../services/biblioteca.service';
+import { BibliotecaItem } from '../models/biblioteca.model';
 
 import { VideojuegoDetalle } from '../models/videojuego-detalle.model';
 
@@ -20,12 +22,14 @@ export class DetalleVideojuegoComponent implements OnInit {
   videojuego!: VideojuegoDetalle;
   mensaje = '';
   cargando = true;
+  yaEnBiblioteca = false;
 
   constructor(
     private route: ActivatedRoute,
     private videojuegoService: VideojuegoService,
     private compraService: CompraService,
-    private authService: AuthService
+    private authService: AuthService,
+    private bibliotecaService: BibliotecaService
   ) {}
 
   ngOnInit(): void {
@@ -34,11 +38,23 @@ export class DetalleVideojuegoComponent implements OnInit {
     this.videojuegoService.obtenerDetalle(id).subscribe({
       next: (data) => {
         this.videojuego = data;
-        this.cargando = false; 
+        this.cargando = false;
+  
+        const usuario = this.authService.obtenerSesion();
+        if (!usuario) return;
+  
+        this.bibliotecaService
+          .obtenerBiblioteca(usuario.idUsuario)
+          .subscribe((items: BibliotecaItem[]) => {
+            this.yaEnBiblioteca = items.some(
+              (item: BibliotecaItem) =>
+                item.idJuego === this.videojuego.idJuego
+            );
+          });
       },
       error: () => {
         this.mensaje = 'Error al cargar el videojuego';
-        this.cargando = false; 
+        this.cargando = false;
       }
     });
   }

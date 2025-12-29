@@ -25,9 +25,20 @@
           Clasificación: {{ v.clasificacionEdad || 'Sin restricción' }}
         </p>
   
-        <button (click)="comprar(v.idJuego)">
-          Comprar
-        </button>
+        <!-- BOTÓN COMPRAR -->
+        <button
+        *ngIf="!yaComprado(v.idJuego)"
+        (click)="comprar(v.idJuego)"
+      >
+        Comprar
+      </button>
+
+      <!-- YA COMPRADO -->
+      <span
+        class="badge propio"
+        *ngIf="yaComprado(v.idJuego)"
+      >
+    </span>
       </div>
     </div>
   </div>
