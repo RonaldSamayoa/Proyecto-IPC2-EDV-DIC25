@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet("/comentarios")
+@WebServlet("/comentarios/*")
 public class ComentarioController extends HttpServlet {
 
     private ComentarioService service;
@@ -49,18 +49,18 @@ public class ComentarioController extends HttpServlet {
 
             if (ok) {
                 resp.setStatus(201);
-                resp.getWriter().write("{\"mensaje\":\"Comentario publicado\"}");
+                resp.getWriter().write("Comentario publicado");
             } else {
                 resp.setStatus(400);
                 resp.getWriter().write(
-                        "{\"error\":\"No puede comentar este juego\"}"
+                        "No puede comentar este juego"
                 );
             }
 
         } catch (Exception e) {
             resp.setStatus(400);
             resp.getWriter().write(
-                    "{\"error\":\"Datos inválidos\"}"
+                    "Datos inválidos"
             );
         }
     }
@@ -76,5 +76,38 @@ public class ComentarioController extends HttpServlet {
                 gson.toJson(service.listarComentariosJuego(idJuego))
         );
     }
+    
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+
+        resp.setContentType("application/json");
+
+        try {
+            Map<String, Object> body = gson.fromJson(req.getReader(), Map.class);
+
+            int idComentario = ((Number) body.get("idComentario")).intValue();
+            int idUsuario = ((Number) body.get("idUsuario")).intValue();
+
+            boolean ok =
+                service.ocultarComentarioConRespuestas(idComentario, idUsuario);
+
+            if (ok) {
+                resp.getWriter().write(
+                    "Comentario y respuestas ocultados"
+                );
+            } else {
+                resp.setStatus(403);
+                resp.getWriter().write(
+                    "No tiene permisos para ocultar este comentario"
+                );
+            }
+
+        } catch (Exception e) {
+            resp.setStatus(400);
+            resp.getWriter().write("Datos inválidos");
+        }
+    }
+
 }
 

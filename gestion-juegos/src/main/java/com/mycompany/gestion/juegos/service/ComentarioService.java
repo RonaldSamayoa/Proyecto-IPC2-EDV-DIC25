@@ -1,13 +1,14 @@
 package com.mycompany.gestion.juegos.service;
 
 import com.mycompany.gestion.juegos.dao.ComentarioDAO;
+import com.mycompany.gestion.juegos.dao.UsuarioDAO;
 import com.mycompany.gestion.juegos.model.Comentario;
 
 import java.util.Date;
 import java.util.List;
 
 public class ComentarioService {
-
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     private final ComentarioDAO comentarioDAO = new ComentarioDAO();
     private final BibliotecaService bibliotecaService = new BibliotecaService();
 
@@ -45,8 +46,15 @@ public class ComentarioService {
         return comentarioDAO.listarPorJuego(idJuego);
     }
 
-    public boolean ocultarComentario(int idComentario) {
-        return comentarioDAO.ocultar(idComentario);
+    public boolean ocultarComentarioConRespuestas(int idComentario, int idUsuario) {
+        boolean permitido = comentarioDAO.puedeOcultar(idComentario, idUsuario);
+        if (!permitido) {
+            return false;
+        }
+
+        comentarioDAO.ocultarConRespuestas(idComentario);
+        return true;
     }
+
 }
 

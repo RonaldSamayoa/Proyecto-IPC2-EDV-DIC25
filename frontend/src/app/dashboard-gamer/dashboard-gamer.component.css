@@ -1,0 +1,22 @@
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: center;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #1976d2;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  

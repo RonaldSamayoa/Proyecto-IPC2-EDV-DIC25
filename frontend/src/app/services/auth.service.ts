@@ -42,9 +42,9 @@ export class AuthService {
     return usuario ? JSON.parse(usuario) : null;
   }
 
-  cerrarSesion() {
+  logout(): void {
     localStorage.removeItem('usuario');
-  }
+  }  
 
   estaAutenticado(): boolean {
     return localStorage.getItem('usuario') !== null;

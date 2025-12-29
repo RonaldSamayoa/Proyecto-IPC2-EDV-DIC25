@@ -124,6 +124,32 @@ public class UsuarioDAO {
             return false;
         }
     }
+    
+    public Integer obtenerEmpresaDelUsuario(int idUsuario) {
+        String sql = """
+            SELECT id_empresa
+            FROM usuario
+            WHERE id_usuario = ?
+              AND rol = 'EMPRESA'
+              AND estado = 1
+        """;
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id_empresa");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener empresa del usuario");
+        }
+
+        return null;
+    }
 
     //Mapea un ResultSet a un objeto Usuario
     private Usuario mapearUsuario(ResultSet rs) throws SQLException {

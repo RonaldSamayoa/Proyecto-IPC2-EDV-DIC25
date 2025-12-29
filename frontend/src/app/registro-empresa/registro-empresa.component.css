@@ -27,7 +27,6 @@ input, textarea {
 
 textarea {
   resize: vertical;
-  min-height: 60px;
 }
 
 button {
@@ -38,12 +37,11 @@ button {
   border: none;
   border-radius: 5px;
   font-weight: bold;
-  cursor: pointer;
 }
 
 button:disabled {
   background-color: #aaa;
-  cursor: not-allowed;
 }
+
 
   

@@ -83,6 +83,83 @@ public class ComentarioDAO {
         }
     }
 
+    public Integer obtenerEmpresaDelComentario(int idComentario) {
+        String sql = """
+            SELECT v.id_empresa
+            FROM comentario c
+            JOIN videojuego v ON c.id_juego = v.id_juego
+            WHERE c.id_comentario = ?
+        """;
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idComentario);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id_empresa");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener empresa del comentario");
+        }
+
+        return null;
+    }
+    
+    public boolean puedeOcultar(int idComentario, int idUsuario) {
+        String sql = """
+            SELECT 1
+            FROM comentario c
+            JOIN videojuego v ON c.id_juego = v.id_juego
+            JOIN usuario_empresa ue ON ue.id_empresa = v.id_empresa
+            WHERE c.id_comentario = ?
+              AND ue.id_usuario = ?
+        """;
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idComentario);
+            ps.setInt(2, idUsuario);
+
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+    
+    public void ocultarConRespuestas(int idComentario) {
+        //Ocultar el comentario actual
+        ocultar(idComentario);
+
+        //Buscar respuestas directas
+        String sql = """
+            SELECT id_comentario
+            FROM comentario
+            WHERE id_comentario_padre = ?
+        """;
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idComentario);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idHijo = rs.getInt("id_comentario");
+                //Llamada recursiva
+                ocultarConRespuestas(idHijo);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al ocultar comentarios en cascada");
+        }
+    }
+
     private Comentario mapear(ResultSet rs) throws SQLException {
 
         Comentario c = new Comentario();

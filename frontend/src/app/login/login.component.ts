@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { LoginRequest } from '../models/usuario.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,23 +20,36 @@ export class LoginComponent {
 
   mensaje = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login(): void {
     console.log('Intentando login...', this.datosLogin);
   
     this.authService.login(this.datosLogin).subscribe({
-      next: (usuario) => {
+      next: (usuario: any) => {
+        console.log('Usuario recibido completo:', usuario);
         console.log('Login OK:', usuario);
+  
         this.authService.guardarSesion(usuario);
         this.mensaje = 'Login correcto';
+  
+        //REDIRECCIÓN SEGÚN ROL
+        if (usuario.rol === 'GAMER') {
+          this.router.navigate(['/dashboard-gamer']);
+        } 
+        else if (usuario.rol === 'EMPRESA') {
+          this.router.navigate(['/dashboard-empresa']);
+        } 
+        else {
+          console.warn('Rol desconocido');
+        }
       },
       error: (err) => {
         console.error('Error login:', err);
         this.mensaje = 'Credenciales inválidas';
       }
     });
-  }
+  }  
   
 }
 
