@@ -84,22 +84,50 @@ public class ComentarioController extends HttpServlet {
         resp.setContentType("application/json");
 
         try {
-            Map<String, Object> body = gson.fromJson(req.getReader(), Map.class);
+            // /comentarios/{id}/ocultar  o  /comentarios/{id}/reactivar
+            String path = req.getPathInfo();
+            if (path == null || path.split("/").length < 3) {
+                resp.setStatus(400);
+                resp.getWriter().write("Ruta inválida");
+                return;
+            }
 
-            int idComentario = ((Number) body.get("idComentario")).intValue();
+            String[] partes = path.split("/");
+            int idComentario = Integer.parseInt(partes[1]);
+            String accion = partes[2];
+
+            Map<String, Object> body =
+                    gson.fromJson(req.getReader(), Map.class);
+
             int idUsuario = ((Number) body.get("idUsuario")).intValue();
 
-            boolean ok =
-                service.ocultarComentarioConRespuestas(idComentario, idUsuario);
+            boolean ok;
+
+            switch (accion) {
+                case "ocultar":
+                    ok = service.ocultarComentarioConRespuestas(
+                            idComentario, idUsuario
+                    );
+                    break;
+
+                case "reactivar":
+                    ok = service.reactivarComentario(
+                            idComentario, idUsuario
+                    );
+                    break;
+
+                default:
+                    resp.setStatus(400);
+                    resp.getWriter().write("Acción no válida");
+                    return;
+            }
 
             if (ok) {
-                resp.getWriter().write(
-                    "Comentario y respuestas ocultados"
-                );
+                resp.getWriter().write("Operación exitosa");
             } else {
                 resp.setStatus(403);
                 resp.getWriter().write(
-                    "No tiene permisos para ocultar este comentario"
+                        "No tiene permisos para realizar esta accion"
                 );
             }
 

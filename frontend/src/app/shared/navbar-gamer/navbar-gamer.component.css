@@ -1,0 +1,41 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1e1e1e;
+    color: white;
+    padding: 10px 20px;
+  }
+  
+  .logo {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .links li a:hover {
+    text-decoration: underline;
+  }
+  
+  .logout {
+    background-color: #d32f2f;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  

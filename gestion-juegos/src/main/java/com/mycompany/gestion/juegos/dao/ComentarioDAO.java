@@ -159,6 +159,21 @@ public class ComentarioDAO {
             System.err.println("Error al ocultar comentarios en cascada");
         }
     }
+    
+    public boolean reactivar(int idComentario) {
+        String sql = "UPDATE comentario SET visible = 1 WHERE id_comentario = ?";
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idComentario);
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al reactivar comentario");
+            return false;
+        }
+    }
 
     private Comentario mapear(ResultSet rs) throws SQLException {
 

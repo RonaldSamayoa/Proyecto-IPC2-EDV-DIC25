@@ -55,6 +55,15 @@ public class ComentarioService {
         comentarioDAO.ocultarConRespuestas(idComentario);
         return true;
     }
+    
+    public boolean reactivarComentario(int idComentario, int idUsuario) {
+        boolean permitido = comentarioDAO.puedeOcultar(idComentario, idUsuario);
+        if (!permitido) {
+            return false;
+        }
+
+        return comentarioDAO.reactivar(idComentario);
+    }
 
 }
 

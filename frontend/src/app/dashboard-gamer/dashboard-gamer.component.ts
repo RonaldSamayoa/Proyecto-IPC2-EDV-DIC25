@@ -1,24 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { NavbarGamerComponent } from '../shared/navbar-gamer/navbar-gamer.component';
 
 @Component({
   selector: 'app-dashboard-gamer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarGamerComponent],
   templateUrl: './dashboard-gamer.component.html',
   styleUrls: ['./dashboard-gamer.component.css']
 })
-export class DashboardGamerComponent {
-    constructor(
-        private authService: AuthService,
-        private router: Router
-      ) {}
-    
-      cerrarSesion(): void {
-        this.authService.logout();
-        this.router.navigate(['']);
-      }
+export class DashboardGamerComponent {}
 
-}
