@@ -25,6 +25,7 @@ public class GrupoFamiliarController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
+        resp.setContentType("application/json");
         Map<String, Object> body = gson.fromJson(req.getReader(), Map.class);
 
         String nombre = (String) body.get("nombre");
@@ -32,7 +33,8 @@ public class GrupoFamiliarController extends HttpServlet {
 
         boolean ok = service.crearGrupo(nombre, idCreador);
 
-        resp.setStatus(ok ? 201 : 400);
+        resp.setStatus(ok ? HttpServletResponse.SC_CREATED
+                      : HttpServletResponse.SC_BAD_REQUEST);
         
         if (ok) {
             resp.getWriter().write("Grupo familiar creado con exito");
@@ -57,11 +59,13 @@ public class GrupoFamiliarController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
+        resp.setContentType("application/json");
         int idGrupo = Integer.parseInt(req.getParameter("idGrupo"));
         int idUsuario = Integer.parseInt(req.getParameter("idUsuario"));
 
         boolean ok = service.eliminarGrupo(idGrupo, idUsuario);
-        resp.setStatus(ok ? 200 : 403);
+        resp.setStatus(ok ? HttpServletResponse.SC_OK
+                      : HttpServletResponse.SC_FORBIDDEN);
         
         if (ok) {
             resp.getWriter().write("Grupo familiar eliminado con exito");

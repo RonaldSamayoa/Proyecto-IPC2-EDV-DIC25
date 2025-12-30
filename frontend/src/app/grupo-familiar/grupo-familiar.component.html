@@ -2,32 +2,41 @@
 
     <h2>👨‍👩‍👧‍👦 Grupo Familiar</h2>
   
+    <!-- Crear -->
     <div class="card">
       <h4>Crear grupo</h4>
-  
       <input
         type="text"
         placeholder="Nombre del grupo"
         [(ngModel)]="nombreGrupo"
       />
-  
-      <button (click)="crearGrupo()">
-        Crear grupo
-      </button>
+      <button (click)="crearGrupo()">Crear grupo</button>
     </div>
   
-    <div class="card">
-      <h4>Eliminar grupo</h4>
+    <!-- Listado -->
+    <div class="grid">
+      <div class="card" *ngFor="let g of grupos">
+        <h3>{{ g.nombre }}</h3>
   
-      <input
-        type="number"
-        placeholder="ID del grupo"
-        [(ngModel)]="idGrupoEliminar"
-      />
-  
-      <button class="danger" (click)="eliminarGrupo()">
-        Eliminar grupo
-      </button>
+        <span class="badge" *ngIf="esCreador(g)">
+          Creador
+        </span>
+        
+        <button
+            class="secondary"
+            [routerLink]="['/grupo', g.idGrupo]"
+            >
+            Entrar al grupo
+        </button>
+
+        <button
+          class="danger"
+          *ngIf="esCreador(g)"
+          (click)="eliminarGrupo(g.idGrupo)"
+        >
+          Eliminar grupo
+        </button>
+      </div>
     </div>
   
     <p class="mensaje">{{ mensaje }}</p>
