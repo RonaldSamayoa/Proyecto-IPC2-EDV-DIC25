@@ -1,0 +1,66 @@
+.grupo-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+  
+  h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .form-grupo {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-grupo input {
+    flex: 1;
+    padding: 0.5rem;
+  }
+  
+  .form-grupo button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .mensaje {
+    margin-bottom: 1rem;
+    color: #2c7;
+  }
+  
+  .error {
+    margin-bottom: 1rem;
+    color: #c33;
+  }
+  
+  .lista-grupos {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .grupo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .grupo-item span {
+    font-weight: 500;
+  }
+  
+  .grupo-item button {
+    background-color: #c33;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .grupo-item button:hover {
+    opacity: 0.9;
+  }
+  

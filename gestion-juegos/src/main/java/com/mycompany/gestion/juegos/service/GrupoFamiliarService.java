@@ -2,6 +2,7 @@ package com.mycompany.gestion.juegos.service;
 import com.mycompany.gestion.juegos.dao.GrupoFamiliarDAO;
 import com.mycompany.gestion.juegos.dao.GrupoUsuarioDAO;
 import com.mycompany.gestion.juegos.model.GrupoFamiliar;
+import java.util.List;
 /**
  *
  * @author ronald
@@ -28,6 +29,11 @@ public class GrupoFamiliarService {
         // El creador siempre pertenece al grupo
         return grupoUsuarioDAO.insertar(idGrupo, idCreador);
     }
+    
+    public List<GrupoFamiliar> listarGruposDelUsuario(int idUsuario) {
+        return grupoDAO.listarPorUsuario(idUsuario);
+    }
+
     
     public boolean eliminarGrupo(int idGrupo, int idSolicitante) {
 

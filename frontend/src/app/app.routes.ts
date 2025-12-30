@@ -9,7 +9,7 @@ import { CarteraComponent } from './cartera/cartera.component';
 import { BibliotecaComponent } from './biblioteca/biblioteca.component';
 import { TiendaComponent } from './tienda/tienda.component';
 import { DetalleVideojuegoComponent } from './detalle-videojuego/detalle-videojuego.component';
-
+import { GrupoFamiliarComponent } from './grupo-familiar/grupo-familiar.component';
 
 export const routes: Routes = [
   // página de bienvenida
@@ -30,6 +30,9 @@ export const routes: Routes = [
   { path: 'tienda', component: TiendaComponent },
 
   { path: 'videojuego/:id', component: DetalleVideojuegoComponent },
+  
+  { path: 'familia', component: GrupoFamiliarComponent },
+
   
   // wildcard por seguridad
   { path: '**', redirectTo: '' }

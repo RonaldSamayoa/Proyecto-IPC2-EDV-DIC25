@@ -42,6 +42,18 @@ public class GrupoFamiliarController extends HttpServlet {
     }
     
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+
+        int idUsuario = Integer.parseInt(req.getParameter("idUsuario"));
+
+        resp.setContentType("application/json");
+        resp.getWriter().write(
+            gson.toJson(service.listarGruposDelUsuario(idUsuario))
+        );
+    }
+   
+    @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 

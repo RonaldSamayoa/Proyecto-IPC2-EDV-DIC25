@@ -1,0 +1,36 @@
+<div class="grupo-container">
+
+    <h2>👨‍👩‍👧‍👦 Grupo Familiar</h2>
+  
+    <div class="card">
+      <h4>Crear grupo</h4>
+  
+      <input
+        type="text"
+        placeholder="Nombre del grupo"
+        [(ngModel)]="nombreGrupo"
+      />
+  
+      <button (click)="crearGrupo()">
+        Crear grupo
+      </button>
+    </div>
+  
+    <div class="card">
+      <h4>Eliminar grupo</h4>
+  
+      <input
+        type="number"
+        placeholder="ID del grupo"
+        [(ngModel)]="idGrupoEliminar"
+      />
+  
+      <button class="danger" (click)="eliminarGrupo()">
+        Eliminar grupo
+      </button>
+    </div>
+  
+    <p class="mensaje">{{ mensaje }}</p>
+  
+  </div>
+  

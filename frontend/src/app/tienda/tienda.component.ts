@@ -9,6 +9,9 @@ import { BibliotecaService } from '../services/biblioteca.service';
 
 import { Videojuego } from '../models/videojuego.model';
 import { BibliotecaItem } from '../models/biblioteca.model';
+import { CategoriaService } from '../services/categoria.service';
+import { Categoria } from '../models/categoria.model';
+
 
 @Component({
   selector: 'app-tienda',
@@ -21,7 +24,11 @@ export class TiendaComponent implements OnInit {
 
   videojuegos: Videojuego[] = [];
   idsEnBiblioteca: number[] = [];
-
+  categorias: Categoria[] = [];
+  categoriaSeleccionada = 0;
+  
+  videojuegosOriginales: Videojuego[] = [];
+  
   mensaje = '';
   cargando = true;
 
@@ -29,17 +36,20 @@ export class TiendaComponent implements OnInit {
     private videojuegoService: VideojuegoService,
     private compraService: CompraService,
     private authService: AuthService,
-    private bibliotecaService: BibliotecaService
+    private bibliotecaService: BibliotecaService,
+    private categoriaService: CategoriaService
   ) {}
 
   ngOnInit(): void {
     this.cargarTienda();
     this.cargarBiblioteca();
+    this.cargarCategorias();
   }
 
   private cargarTienda(): void {
     this.videojuegoService.listarActivos().subscribe({
       next: (data: Videojuego[]) => {
+        this.videojuegosOriginales = data;
         this.videojuegos = data;
         this.cargando = false;
       },
@@ -63,6 +73,12 @@ export class TiendaComponent implements OnInit {
       });
   }
 
+  private cargarCategorias(): void {
+    this.categoriaService.listarActivas().subscribe({
+      next: (data: Categoria[]) => this.categorias = data
+    });
+  }
+  
   yaComprado(idJuego: number): boolean {
     return this.idsEnBiblioteca.includes(idJuego);
   }

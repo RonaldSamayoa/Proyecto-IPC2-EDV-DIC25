@@ -74,7 +74,7 @@ public class GrupoFamiliarDAO {
         }
     }
 
-    public List<GrupoFamiliar> listarPorCreador(int idUsuario) {
+    public List<GrupoFamiliar> listarPorUsuario(int idUsuario) {
         String sql = """
             SELECT gf.*
             FROM grupo_familiar gf
