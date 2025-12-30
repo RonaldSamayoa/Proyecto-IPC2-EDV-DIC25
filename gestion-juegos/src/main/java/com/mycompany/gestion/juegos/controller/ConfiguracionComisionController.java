@@ -44,13 +44,36 @@ public class ConfiguracionComisionController extends HttpServlet {
         int idUsuario = ((Number) body.get("idUsuario")).intValue();
         BigDecimal porcentaje = new BigDecimal(body.get("porcentaje").toString());
 
-        boolean ok = service.actualizarComisionGlobal(idUsuario, porcentaje);
+        boolean ok = service.registrarComisionGlobal(idUsuario, porcentaje);
 
         if (ok) {
-            resp.getWriter().write("{\"mensaje\":\"Comisión global actualizada\"}");
+            resp.getWriter().write("Comisión global actualizada");
         } else {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            resp.getWriter().write("{\"error\":\"No autorizado o datos inválidos\"}");
+            resp.getWriter().write("No autorizado o datos inválidos");
+        }
+    }
+    
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+
+        resp.setContentType("application/json");
+
+        Map<String, Object> body = gson.fromJson(req.getReader(), Map.class);
+
+        int idUsuario = ((Number) body.get("idUsuario")).intValue();
+        BigDecimal porcentaje = new BigDecimal(body.get("porcentaje").toString());
+
+        boolean ok = service.cambiarComisionGlobalConRecalculo(idUsuario, porcentaje);
+
+        if (ok) {
+            resp.getWriter().write("Comisión global y específicas actualizadas"
+            );
+        } else {
+            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            resp.getWriter().write("No autorizado o datos inválidos"
+            );
         }
     }
 }

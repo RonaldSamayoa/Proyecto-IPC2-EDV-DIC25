@@ -1,6 +1,7 @@
 package com.mycompany.gestion.juegos.dao;
 import com.mycompany.gestion.juegos.model.Empresa;
 import com.mycompany.gestion.juegos.resources.DBConnectionSingleton;
+import java.math.BigDecimal;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -188,6 +189,51 @@ public class EmpresaDAO {
 
         } catch (SQLException e) {
             System.err.println("Error al verificar nombre empresa");
+            return false;
+        }
+    }
+
+    public List<Empresa> listarConComisionEspecifica() {
+        String sql = """
+            SELECT * FROM empresa
+            WHERE porcentaje_comision_especifico IS NOT NULL
+              AND estado = 1
+        """;
+
+        List<Empresa> lista = new ArrayList<>();
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                lista.add(mapear(rs));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al listar empresas con comisión específica");
+        }
+
+        return lista;
+    }
+    
+    public boolean actualizarComisionesProporcionalmente(BigDecimal factor) {
+        String sql = """
+            UPDATE empresa
+            SET porcentaje_comision_especifico =
+                porcentaje_comision_especifico * ?
+            WHERE porcentaje_comision_especifico IS NOT NULL
+              AND estado = 1
+        """;
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setBigDecimal(1, factor);
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar comisiones proporcionalmente");
             return false;
         }
     }
