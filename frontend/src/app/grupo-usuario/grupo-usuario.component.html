@@ -2,8 +2,8 @@
 
   <h2>👥 Usuarios del Grupo</h2>
 
-  <!-- Agregar usuario -->
-  <div class="card">
+  <!-- Agregar usuario (solo creador) -->
+  <div class="card" *ngIf="esCreador">
     <input
       type="number"
       placeholder="ID del usuario"
@@ -15,7 +15,7 @@
     </button>
   </div>
 
-  <!-- Listado de usuarios -->
+  <!-- Listado -->
   <div class="grid" *ngIf="usuarios.length > 0">
     <div class="card" *ngFor="let u of usuarios">
 
@@ -24,8 +24,10 @@
       <p class="correo">{{ u.correo }}</p>
       <p class="pais">País: {{ u.pais }}</p>
 
+      <!-- Quitar solo si es creador -->
       <button
         class="danger"
+        *ngIf="esCreador"
         (click)="quitar(u.idUsuario)"
       >
         Quitar
@@ -34,10 +36,16 @@
     </div>
   </div>
 
-  <!-- Mensaje -->
+  <button class="biblioteca"
+        (click)="verBiblioteca()">
+  📚 Biblioteca compartida
+</button>
+
+
   <p class="mensaje">{{ mensaje }}</p>
 
 </div>
+
 
   
   

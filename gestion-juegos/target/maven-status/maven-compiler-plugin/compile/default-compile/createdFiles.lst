@@ -19,6 +19,7 @@ com/mycompany/gestion/juegos/controller/EmpresaController.class
 com/mycompany/gestion/juegos/service/BannerService.class
 com/mycompany/gestion/juegos/dto/CategoriaDTO.class
 com/mycompany/gestion/juegos/model/enums/TipoMultimedia.class
+com/mycompany/gestion/juegos/controller/BibliotecaGrupoController.class
 com/mycompany/gestion/juegos/controller/CalificacionController.class
 com/mycompany/gestion/juegos/model/Compra.class
 com/mycompany/gestion/juegos/service/CalificacionService.class
@@ -71,6 +72,7 @@ com/mycompany/gestion/juegos/controller/CarteraController.class
 com/mycompany/gestion/juegos/dao/UsuarioEmpresaDAO.class
 com/mycompany/gestion/juegos/model/GrupoUsuario.class
 com/mycompany/gestion/juegos/service/UsuarioEmpresaService.class
+com/mycompany/gestion/juegos/dto/JuegoCompartidoDTO.class
 com/mycompany/gestion/juegos/controller/CategoriaController.class
 com/mycompany/gestion/juegos/model/JuegoCategoria.class
 com/mycompany/gestion/juegos/controller/RegistroEmpresaController.class

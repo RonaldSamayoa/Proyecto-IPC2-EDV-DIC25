@@ -14,18 +14,12 @@ public class UsuarioService {
     }
 
     //Registra un nuevo usuario en el sistema.
-    //Valida que el correo y el nickname no estén en uso
+    //Valida que el correo no esté en uso
     public boolean registrarUsuario(Usuario usuario) {
 
         // Validar correo duplicado
         if (usuarioDAO.buscarPorCorreo(usuario.getCorreo()) != null) {
             System.err.println("El correo ya se encuentra registrado.");
-            return false;
-        }
-
-        // Validar nickname duplicado
-        if (usuarioDAO.buscarPorNickname(usuario.getNickname()) != null) {
-            System.err.println("El nickname ya se encuentra registrado.");
             return false;
         }
 
@@ -77,8 +71,7 @@ public class UsuarioService {
         }
 
         if (usuarioDAO.buscarPorCorreo(admin.getCorreo()) != null) return false;
-        if (usuarioDAO.buscarPorNickname(admin.getNickname()) != null) return false;
-
+        
         admin.setEstado(true);
 
         //No se crea cartera

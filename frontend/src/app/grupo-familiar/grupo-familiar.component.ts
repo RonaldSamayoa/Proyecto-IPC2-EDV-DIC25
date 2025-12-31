@@ -75,8 +75,15 @@ export class GrupoFamiliarComponent implements OnInit {
     return usuario?.idUsuario === grupo.idCreador;
   }
 
-  entrarGrupo(idGrupo: number): void {
-    this.router.navigate(['/grupo', idGrupo, 'usuarios']);
+  entrarGrupo(grupo: GrupoFamiliar): void {
+    this.router.navigate(
+      ['/grupo', grupo.idGrupo, 'usuarios'],
+      {
+        state: {
+          idCreador: grupo.idCreador
+        }
+      }
+    );
   }
 }
 

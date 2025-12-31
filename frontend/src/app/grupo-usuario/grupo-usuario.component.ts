@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { GrupoUsuarioService } from '../services/grupo-usuario.service';
 import { UsuarioGrupo } from '../models/usuario-grupo.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-grupo-usuario',
@@ -19,17 +20,28 @@ export class GrupoUsuarioComponent implements OnInit {
 
   usuarios: UsuarioGrupo[] = [];
   mensaje = '';
+  esCreador = false;
 
   constructor(
     private route: ActivatedRoute,
-    private grupoUsuarioService: GrupoUsuarioService
+    private grupoUsuarioService: GrupoUsuarioService,
+    private router: Router
+
   ) {}
 
   ngOnInit(): void {
     this.idGrupo = Number(this.route.snapshot.paramMap.get('idGrupo'));
+  
+    const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+    const state = history.state;
+  
+    if (usuario && state?.idCreador) {
+      this.esCreador = usuario.idUsuario === state.idCreador;
+    }
+  
     this.cargarUsuarios();
   }
-
+  
   cargarUsuarios(): void {
     this.grupoUsuarioService
       .listarUsuarios(this.idGrupo)
@@ -65,5 +77,10 @@ export class GrupoUsuarioComponent implements OnInit {
         error: () => this.mensaje = 'No se pudo eliminar el usuario'
       });
   }
+
+  verBiblioteca(): void {
+    this.router.navigate(['/grupo', this.idGrupo, 'biblioteca']);
+  }
+  
 }
 

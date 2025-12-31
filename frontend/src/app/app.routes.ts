@@ -11,7 +11,7 @@ import { TiendaComponent } from './tienda/tienda.component';
 import { DetalleVideojuegoComponent } from './detalle-videojuego/detalle-videojuego.component';
 import { GrupoFamiliarComponent } from './grupo-familiar/grupo-familiar.component';
 import { GrupoUsuarioComponent } from './grupo-usuario/grupo-usuario.component';
-
+import { GrupoBibliotecaComponent } from './grupo-biblioteca/grupo-biblioteca.component';
 
 export const routes: Routes = [
   // página de bienvenida
@@ -35,8 +35,10 @@ export const routes: Routes = [
   
   { path: 'familia', component: GrupoFamiliarComponent },
 
-  {path:'grupo/:idGrupo/usuarios', component: GrupoUsuarioComponent},
+  { path:'grupo/:idGrupo/usuarios', component: GrupoUsuarioComponent},
 
+  { path: 'grupo/:idGrupo/biblioteca', component: GrupoBibliotecaComponent},
+  
   
 
   // wildcard por seguridad

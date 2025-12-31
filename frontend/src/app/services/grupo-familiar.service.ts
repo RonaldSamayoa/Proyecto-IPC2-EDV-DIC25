@@ -21,14 +21,14 @@ export class GrupoFamiliarService {
 
   listarPorUsuario(idUsuario: number): Observable<GrupoFamiliar[]> {
     return this.http.get<GrupoFamiliar[]>(
-      `${ApiConfig.BASE_URL}/grupo-familiar?idUsuario=${idUsuario}`
+      `${ApiConfig.GRUPOS.FAMILIAR}?idUsuario=${idUsuario}`
     );
   }
   
 
   eliminarGrupo(idGrupo: number, idUsuario: number) {
     return this.http.delete(
-      `${ApiConfig.BASE_URL}/grupo-familiar?idGrupo=${idGrupo}&idUsuario=${idUsuario}`,
+      `${ApiConfig.GRUPOS.FAMILIAR}?idGrupo=${idGrupo}&idUsuario=${idUsuario}`,
       { responseType: 'text' }  
     );
   }

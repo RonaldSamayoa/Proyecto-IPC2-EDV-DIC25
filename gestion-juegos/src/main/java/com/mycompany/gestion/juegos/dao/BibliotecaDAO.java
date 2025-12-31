@@ -110,5 +110,31 @@ public class BibliotecaDAO {
 
         return lista;
     }
+    
+    public List<Integer> listarJuegosPropiosPorUsuario(int idUsuario) {
+        String sql = """
+            SELECT id_juego
+            FROM biblioteca
+            WHERE id_usuario = ? AND es_propio = 1
+        """;
+
+        List<Integer> juegos = new ArrayList<>();
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                juegos.add(rs.getInt("id_juego"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al listar juegos propios del usuario");
+        }
+
+        return juegos;
+    }
 
 }

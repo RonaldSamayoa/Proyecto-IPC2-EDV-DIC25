@@ -46,7 +46,8 @@ public class GrupoFamiliarController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
-
+      
+        //listar los grupos del usuario
         int idUsuario = Integer.parseInt(req.getParameter("idUsuario"));
 
         resp.setContentType("application/json");
