@@ -68,29 +68,36 @@ public class GrupoUsuarioController extends HttpServlet {
             throws IOException {
 
         resp.setContentType("application/json");
-
+        resp.setCharacterEncoding("UTF-8");
         String tipo = req.getParameter("tipo");
 
         if ("usuarios".equals(tipo)) {
             int idGrupo = Integer.parseInt(req.getParameter("idGrupo"));
-            List<Integer> usuarios = service.obtenerUsuariosDeGrupo(idGrupo);
-            resp.getWriter().write(gson.toJson(usuarios));
+
+            resp.getWriter().write(
+                gson.toJson(
+                    service.obtenerUsuariosDeGrupoConNombre(idGrupo)
+                )
+            );
 
         } else if ("grupos".equals(tipo)) {
             int idUsuario = Integer.parseInt(req.getParameter("idUsuario"));
-            List<Integer> grupos = service.obtenerGruposDeUsuario(idUsuario);
-            resp.getWriter().write(gson.toJson(grupos));
+            resp.getWriter().write(
+                gson.toJson(service.obtenerGruposDeUsuario(idUsuario))
+            );
 
         } else if ("comparten".equals(tipo)) {
             int idUsuarioA = Integer.parseInt(req.getParameter("idUsuarioA"));
             int idUsuarioB = Integer.parseInt(req.getParameter("idUsuarioB"));
 
-            boolean comparten = service.usuariosCompartenGrupo(idUsuarioA, idUsuarioB);
-            resp.getWriter().write(gson.toJson(comparten));
-        }
-        else {
+            resp.getWriter().write(
+                gson.toJson(service.usuariosCompartenGrupo(idUsuarioA, idUsuarioB))
+            );
+
+        } else {
             resp.setStatus(400);
             resp.getWriter().write("Parámetro tipo inválido");
         }
     }
+
 }

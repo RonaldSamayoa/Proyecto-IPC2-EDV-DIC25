@@ -1,6 +1,7 @@
 package com.mycompany.gestion.juegos.service;
 
 import com.mycompany.gestion.juegos.dao.GrupoUsuarioDAO;
+import com.mycompany.gestion.juegos.dto.UsuarioResponseDTO;
 import java.util.List;
 
 public class GrupoUsuarioService {
@@ -40,6 +41,10 @@ public class GrupoUsuarioService {
     // Verificar si dos usuarios comparten grupo
     public boolean usuariosCompartenGrupo(int idUsuarioA, int idUsuarioB) {
         return dao.compartenGrupo(idUsuarioA, idUsuarioB);
+    }
+    
+    public List<UsuarioResponseDTO> obtenerUsuariosDeGrupoConNombre(int idGrupo) {
+        return dao.obtenerUsuariosConNombreDeGrupo(idGrupo);
     }
 }
 

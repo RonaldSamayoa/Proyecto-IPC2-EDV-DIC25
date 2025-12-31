@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { GrupoFamiliarService } from '../services/grupo-familiar.service';
 import { AuthService } from '../services/auth.service';
 import { GrupoFamiliar } from '../models/grupo-familiar.model';
@@ -21,7 +22,8 @@ export class GrupoFamiliarComponent implements OnInit {
 
   constructor(
     private grupoService: GrupoFamiliarService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +73,10 @@ export class GrupoFamiliarComponent implements OnInit {
   esCreador(grupo: GrupoFamiliar): boolean {
     const usuario = this.authService.obtenerSesion();
     return usuario?.idUsuario === grupo.idCreador;
+  }
+
+  entrarGrupo(idGrupo: number): void {
+    this.router.navigate(['/grupo', idGrupo, 'usuarios']);
   }
 }
 

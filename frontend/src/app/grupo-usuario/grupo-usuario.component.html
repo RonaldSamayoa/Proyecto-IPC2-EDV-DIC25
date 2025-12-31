@@ -1,0 +1,43 @@
+<div class="grupo-container">
+
+  <h2>👥 Usuarios del Grupo</h2>
+
+  <!-- Agregar usuario -->
+  <div class="card">
+    <input
+      type="number"
+      placeholder="ID del usuario"
+      [(ngModel)]="idUsuario"
+    />
+
+    <button (click)="agregar()">
+      Agregar usuario
+    </button>
+  </div>
+
+  <!-- Listado de usuarios -->
+  <div class="grid" *ngIf="usuarios.length > 0">
+    <div class="card" *ngFor="let u of usuarios">
+
+      <h3>{{ u.nickname }}</h3>
+
+      <p class="correo">{{ u.correo }}</p>
+      <p class="pais">País: {{ u.pais }}</p>
+
+      <button
+        class="danger"
+        (click)="quitar(u.idUsuario)"
+      >
+        Quitar
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mensaje -->
+  <p class="mensaje">{{ mensaje }}</p>
+
+</div>
+
+  
+  

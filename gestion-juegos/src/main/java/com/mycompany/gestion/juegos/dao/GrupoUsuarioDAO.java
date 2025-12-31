@@ -1,4 +1,5 @@
 package com.mycompany.gestion.juegos.dao;
+import com.mycompany.gestion.juegos.dto.UsuarioResponseDTO;
 import com.mycompany.gestion.juegos.resources.DBConnectionSingleton;
 
 import java.sql.*;
@@ -165,5 +166,41 @@ public class GrupoUsuarioDAO {
         } catch (SQLException e) {
             return false;
         }
+    }
+    
+    public List<UsuarioResponseDTO> obtenerUsuariosConNombreDeGrupo(int idGrupo) {
+        String sql = """
+            SELECT u.id_usuario,
+                   u.nickname,
+                   u.correo,
+                   u.fecha_nacimiento,
+                   u.pais
+            FROM grupo_usuario gu
+            JOIN usuario u ON gu.id_usuario = u.id_usuario
+            WHERE gu.id_grupo = ?
+        """;
+
+        List<UsuarioResponseDTO> lista = new ArrayList<>();
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idGrupo);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                UsuarioResponseDTO dto = new UsuarioResponseDTO();
+                dto.setIdUsuario(rs.getInt("id_usuario"));
+                dto.setNickname(rs.getString("nickname"));
+                dto.setCorreo(rs.getString("correo"));
+                dto.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
+                dto.setPais(rs.getString("pais"));
+
+                lista.add(dto);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener usuarios del grupo");
+        }
+        return lista;
     }
 }

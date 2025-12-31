@@ -31,7 +31,12 @@ export class AuthService {
     );
   }
   
-
+  obtenerUsuarioPorId(idUsuario: number) {
+    return this.http.get<UsuarioResponseDTO>(
+      `${ApiConfig.BASE_URL}/usuarios?idUsuario=${idUsuario}`
+    );
+  }
+  
   // Manejo de sesión simple
   guardarSesion(usuario: UsuarioResponseDTO) {
     localStorage.setItem('usuario', JSON.stringify(usuario));

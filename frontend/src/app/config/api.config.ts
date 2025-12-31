@@ -20,5 +20,10 @@ export class ApiConfig {
       COMPRAR: `${ApiConfig.BASE_URL}/compras`
     };
     
+    public static readonly GRUPOS = {
+      FAMILIAR: `${ApiConfig.BASE_URL}/grupo-familiar`,
+      USUARIO: `${ApiConfig.BASE_URL}/grupo-usuario`
+    };
+    
   }
   

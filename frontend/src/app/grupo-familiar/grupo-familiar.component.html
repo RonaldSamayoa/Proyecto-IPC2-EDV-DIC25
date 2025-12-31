@@ -22,12 +22,10 @@
           Creador
         </span>
         
-        <button
-            class="secondary"
-            [routerLink]="['/grupo', g.idGrupo]"
-            >
+        <button (click)="entrarGrupo(g.idGrupo)">
             Entrar al grupo
-        </button>
+          </button>
+          
 
         <button
           class="danger"

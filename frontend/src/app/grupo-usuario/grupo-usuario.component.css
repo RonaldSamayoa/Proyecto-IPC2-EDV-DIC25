@@ -1,0 +1,52 @@
+.grupo-container {
+    padding: 20px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    background: #202036;
+    color: #fff;
+    padding: 16px;
+    border-radius: 10px;
+  }
+  
+  .card input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: none;
+  }
+  
+  .card button {
+    width: 100%;
+    padding: 8px;
+    background: #3498db;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .card button:hover {
+    background: #2980b9;
+  }
+  
+  button.danger {
+    background: #e74c3c;
+  }
+  
+  button.danger:hover {
+    background: #c0392b;
+  }
+  
+  .mensaje {
+    margin-top: 15px;
+  }
+  
