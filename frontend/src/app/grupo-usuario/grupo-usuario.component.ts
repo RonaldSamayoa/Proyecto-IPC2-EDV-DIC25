@@ -5,11 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { GrupoUsuarioService } from '../services/grupo-usuario.service';
 import { UsuarioGrupo } from '../models/usuario-grupo.model';
 import { Router } from '@angular/router';
+import { NavbarGamerComponent } from '../shared/navbar-gamer/navbar-gamer.component';
 
 @Component({
   selector: 'app-grupo-usuario',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NavbarGamerComponent],
   templateUrl: './grupo-usuario.component.html',
   styleUrls: ['./grupo-usuario.component.css']
 })

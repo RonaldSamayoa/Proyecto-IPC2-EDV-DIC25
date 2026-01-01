@@ -10,6 +10,7 @@ import { InstalacionJuegoService } from '../services/instalacion-juego.service';
 
 import { Videojuego } from '../models/videojuego.model';
 import { BibliotecaItem } from '../models/biblioteca.model';
+import { NavbarGamerComponent } from '../shared/navbar-gamer/navbar-gamer.component';
 
 interface BibliotecaVista {
   videojuego: Videojuego;
@@ -20,7 +21,7 @@ interface BibliotecaVista {
 @Component({
   selector: 'app-biblioteca',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NavbarGamerComponent],
   templateUrl: './biblioteca.component.html',
   styleUrls: ['./biblioteca.component.css']
 })

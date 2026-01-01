@@ -6,11 +6,12 @@ import { Router } from '@angular/router';
 import { GrupoFamiliarService } from '../services/grupo-familiar.service';
 import { AuthService } from '../services/auth.service';
 import { GrupoFamiliar } from '../models/grupo-familiar.model';
+import { NavbarGamerComponent } from '../shared/navbar-gamer/navbar-gamer.component';
 
 @Component({
   selector: 'app-grupo-familiar',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, NavbarGamerComponent],
   templateUrl: './grupo-familiar.component.html',
   styleUrls: ['./grupo-familiar.component.css']
 })

@@ -4,11 +4,12 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BibliotecaGrupoService } from '../services/biblioteca-grupo.service';
 import { AuthService } from '../services/auth.service';
 import { InstalacionJuegoService } from '../services/instalacion-juego.service';
+import { NavbarGamerComponent } from '../shared/navbar-gamer/navbar-gamer.component';
 
 @Component({
   selector: 'app-grupo-biblioteca',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NavbarGamerComponent],
   templateUrl: './grupo-biblioteca.component.html',
   styleUrls: ['./grupo-biblioteca.component.css']
 })

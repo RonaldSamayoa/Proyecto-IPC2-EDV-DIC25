@@ -7,13 +7,14 @@ import { CompraService } from '../services/compra.service';
 import { AuthService } from '../services/auth.service';
 import { BibliotecaService } from '../services/biblioteca.service';
 import { BibliotecaItem } from '../models/biblioteca.model';
+import { NavbarGamerComponent } from '../shared/navbar-gamer/navbar-gamer.component';
 
 import { VideojuegoDetalle } from '../models/videojuego-detalle.model';
 
 @Component({
   selector: 'app-detalle-videojuego',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,NavbarGamerComponent],
   templateUrl: './detalle-videojuego.component.html',
   styleUrls: ['./detalle-videojuego.component.css']
 })
