@@ -12,6 +12,9 @@ import { DetalleVideojuegoComponent } from './detalle-videojuego/detalle-videoju
 import { GrupoFamiliarComponent } from './grupo-familiar/grupo-familiar.component';
 import { GrupoUsuarioComponent } from './grupo-usuario/grupo-usuario.component';
 import { GrupoBibliotecaComponent } from './grupo-biblioteca/grupo-biblioteca.component';
+import { AuthGuard } from './guards/auth.guard';
+import { GamerGuard } from './guards/gamer.guard';
+import { EmpresaGuard } from './guards/empresa.guard';
 
 export const routes: Routes = [
   // página de bienvenida
@@ -22,22 +25,23 @@ export const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'registro-empresa', component: RegistroEmpresaComponent },
   
-  { path: 'dashboard-gamer', component: DashboardGamerComponent },
-  { path: 'dashboard-empresa', component: DashboardEmpresaComponent },
+  //dashboards segun el rol
+  { path: 'dashboard-gamer', component: DashboardGamerComponent, canActivate: [AuthGuard, GamerGuard] },
+  { path: 'dashboard-empresa', component: DashboardEmpresaComponent, canActivate: [AuthGuard, EmpresaGuard] },
 
-  { path: 'cartera', component: CarteraComponent },
+  { path: 'cartera', component: CarteraComponent, canActivate: [AuthGuard, GamerGuard]},
 
-  { path: 'biblioteca', component: BibliotecaComponent },
+  { path: 'biblioteca', component: BibliotecaComponent, canActivate: [AuthGuard, GamerGuard] },
 
-  { path: 'tienda', component: TiendaComponent },
+  { path: 'tienda', component: TiendaComponent, canActivate: [AuthGuard] },
 
-  { path: 'videojuego/:id', component: DetalleVideojuegoComponent },
+  { path: 'videojuego/:id', component: DetalleVideojuegoComponent, canActivate: [AuthGuard] },
   
-  { path: 'familia', component: GrupoFamiliarComponent },
+  { path: 'familia', component: GrupoFamiliarComponent, canActivate: [AuthGuard, GamerGuard] },
 
-  { path:'grupo/:idGrupo/usuarios', component: GrupoUsuarioComponent},
+  { path:'grupo/:idGrupo/usuarios', component: GrupoUsuarioComponent, canActivate: [AuthGuard, GamerGuard]},
 
-  { path: 'grupo/:idGrupo/biblioteca', component: GrupoBibliotecaComponent},
+  { path: 'grupo/:idGrupo/biblioteca', component: GrupoBibliotecaComponent, canActivate: [AuthGuard, GamerGuard]},
   
   
 

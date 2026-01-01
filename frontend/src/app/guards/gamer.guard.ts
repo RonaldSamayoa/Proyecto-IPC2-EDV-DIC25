@@ -1,0 +1,25 @@
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GamerGuard implements CanActivate {
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  canActivate(): boolean {
+    const usuario = this.authService.obtenerSesion();
+
+    if (usuario && usuario.rol === 'GAMER') {
+      return true;
+    }
+
+    this.router.navigate(['']);
+    return false;
+  }
+}

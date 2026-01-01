@@ -77,3 +77,13 @@
     color: #ccc;
   }
   
+  .titulo a {
+    color: #9b59ff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .titulo a:hover {
+    text-decoration: underline;
+  }
+  

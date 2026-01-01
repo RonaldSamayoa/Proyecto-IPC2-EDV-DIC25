@@ -18,6 +18,7 @@ public class VideojuegoDetalleDTO {
     private Date fechaLanzamiento;
     private int idEmpresa;
     private String nombreEmpresa; 
+    private int idDueno;
 
     private List<Categoria> categorias;
 
@@ -104,4 +105,13 @@ public class VideojuegoDetalleDTO {
     public void setCategorias(List<Categoria> categorias) {
         this.categorias = categorias;
     }
+
+    public int getIdDueno() {
+        return idDueno;
+    }
+
+    public void setIdDueno(int idDueno) {
+        this.idDueno = idDueno;
+    }
+
 }

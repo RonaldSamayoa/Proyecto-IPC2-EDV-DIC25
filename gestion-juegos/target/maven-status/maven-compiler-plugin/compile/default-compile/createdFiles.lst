@@ -53,6 +53,7 @@ com/mycompany/gestion/juegos/dao/VideojuegoDAO.class
 com/mycompany/gestion/juegos/dao/EmpresaDAO.class
 com/mycompany/gestion/juegos/service/JuegoCategoriaService.class
 com/mycompany/gestion/juegos/controller/GrupoFamiliarController.class
+com/mycompany/gestion/juegos/controller/EstadoInstalacionController.class
 com/mycompany/gestion/juegos/model/InstalacionJuego.class
 com/mycompany/gestion/juegos/service/MultimediaService.class
 com/mycompany/gestion/juegos/dao/ComentarioDAO.class

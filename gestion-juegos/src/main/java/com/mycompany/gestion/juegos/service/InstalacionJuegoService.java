@@ -36,6 +36,11 @@ public class InstalacionJuegoService {
                 return false;
             }
 
+             // no puedo prestarme mi propio juego
+            if (idUsuario == idDueno) {
+                return false;
+            }
+            
             // deben compartir grupo
             if (!grupoUsuarioDAO.compartenGrupo(idUsuario, idDueno)) {
                 return false;
@@ -45,7 +50,7 @@ public class InstalacionJuegoService {
             if (!bibliotecaDAO.existeEnBiblioteca(idDueno, idJuego)) {
                 return false;
             }
-
+            
             // el usuario puede tener solo un juego prestado instalado
             if (instalacionDAO.usuarioTienePrestadoActivo(idUsuario)) {
                 int juegoActivo = instalacionDAO.obtenerJuegoPrestadoActivo(idUsuario);
@@ -56,9 +61,10 @@ public class InstalacionJuegoService {
                 }
                 
                 //Si el prestamo no ha expirado pero quiere instalar otro, se hace un cambio automatico
-                else {
+                else if (juegoActivo != idJuego) {
                     instalacionDAO.desinstalarPrestadoActivo(idUsuario);
                 }
+                // si es el MISMO juego y no está expirado → no se desinstala
             }
         }
 
@@ -75,4 +81,9 @@ public class InstalacionJuegoService {
     public boolean desinstalarJuego(int idUsuario, int idJuego) {
         return instalacionDAO.desinstalar(idUsuario, idJuego);
     }
+    
+    public boolean estaInstalado(int idUsuario, int idJuego) {
+        return instalacionDAO.usuarioTieneInstalado(idUsuario, idJuego);
+    }
+    
 }

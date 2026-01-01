@@ -1,0 +1,28 @@
+<nav class="navbar">
+    <div class="logo">
+      <a routerLink="/dashboard-empresa">Mi Empresa</a>
+    </div>
+  
+    <ul class="nav-links">
+      <li>
+        <a routerLink="/dashboard-empresa" routerLinkActive="active">
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a routerLink="/empresa-juegos" routerLinkActive="active">
+          Mis juegos
+        </a>
+      </li>
+      <li>
+        <a routerLink="/empresa-reportes" routerLinkActive="active">
+          Reportes
+        </a>
+      </li>
+    </ul>
+  
+    <button class="logout" (click)="cerrarSesion()">
+      Cerrar sesión
+    </button>
+  </nav>
+  

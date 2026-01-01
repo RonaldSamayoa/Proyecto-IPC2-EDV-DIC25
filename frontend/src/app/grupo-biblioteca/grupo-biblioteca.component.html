@@ -1,40 +1,52 @@
 <div class="grupo-container">
 
-    <h2>🎮 Biblioteca compartida del grupo</h2>
-  
-    <div class="grid" *ngIf="juegos.length > 0">
-  
-      <div class="card" *ngFor="let j of juegos">
-  
-        <h3>{{ j.titulo }}</h3>
-  
-        <p class="empresa">
-          {{ j.nombreEmpresa }}
-        </p>
-  
-        <div class="categorias">
-          <span class="badge" *ngFor="let c of j.categorias">
-            {{ c.nombre }}
-          </span>
-        </div>
-  
-        <span class="badge prestado">
-          Prestado
+  <h2>🎮 Biblioteca compartida del grupo</h2>
+
+  <div class="grid" *ngIf="juegos.length > 0">
+
+    <div class="card" *ngFor="let j of juegos">
+
+      <!-- TÍTULO CON LINK AL DETALLE -->
+      <h3 class="titulo">
+        <a (click)="verDetalle(j.idJuego)" class="titulo-link">
+          {{ j.titulo }}
+        </a>
+      </h3>
+
+      <!-- EMPRESA -->
+      <p class="empresa">
+        {{ j.nombreEmpresa }}
+      </p>
+
+      <!-- CATEGORÍAS -->
+      <div class="categorias">
+        <span class="badge" *ngFor="let c of j.categorias">
+          {{ c.nombre }}
         </span>
-  
-        <button class="instalar">
-          Instalar
-        </button>
-  
       </div>
-  
+
+      <!-- BADGE PRESTADO -->
+      <span class="badge prestado" *ngIf="j.prestado">
+        Prestado
+      </span>
+
+      <!-- BOTÓN INSTALAR -->
+      <button
+        class="instalar"
+        (click)="j.instalado ? desinstalarJuego(j) : instalarJuego(j)">
+        {{ j.instalado ? 'Desinstalar' : 'Instalar' }}
+      </button>
     </div>
-  
-    <p class="mensaje" *ngIf="juegos.length === 0">
-      No hay juegos compartidos en este grupo
-    </p>
-  
-    <p class="mensaje">{{ mensaje }}</p>
-  
   </div>
+
+  <!-- MENSAJES -->
+  <p class="mensaje" *ngIf="juegos.length === 0">
+    No hay juegos compartidos en este grupo
+  </p>
+
+  <p class="mensaje">{{ mensaje }}</p>
+
+</div>
+
+  
   

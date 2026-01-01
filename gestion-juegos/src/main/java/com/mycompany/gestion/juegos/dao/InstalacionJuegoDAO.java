@@ -203,4 +203,26 @@ public class InstalacionJuegoDAO {
             return false;
         }
     }
+    
+    public boolean usuarioTieneInstalado(int idUsuario, int idJuego) {
+        String sql = """
+            SELECT 1
+            FROM instalacion_juego
+            WHERE id_usuario = ?
+              AND id_juego = ?
+              AND fecha_desinstalacion IS NULL
+        """;
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            ps.setInt(2, idJuego);
+            return ps.executeQuery().next();
+
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
 }

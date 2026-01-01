@@ -99,6 +99,7 @@ public class BibliotecaService {
                         videojuegoDAO.obtenerDetallePorId(idJuego);
 
                 if (dto != null) {
+                    dto.setIdDueno(idUsuario);
                     resultado.add(dto);
                     juegosAgregados.add(idJuego);
                 }
