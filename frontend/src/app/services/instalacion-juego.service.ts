@@ -54,5 +54,13 @@ export class InstalacionJuegoService {
     );
   }
   
+  listarInstaladosPorUsuario(idUsuario: number): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${ApiConfig.BASE_URL}/instalacion/usuario`,
+      {
+        params: { idUsuario }
+      }
+    );
+  }
 
 }

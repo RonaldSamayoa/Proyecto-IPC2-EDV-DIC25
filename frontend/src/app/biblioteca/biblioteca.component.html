@@ -1,47 +1,62 @@
 <div class="biblioteca-container">
-    <h2>📚 Mi Biblioteca</h2>
-  
-    <p *ngIf="cargando">Cargando biblioteca...</p>
-    <p class="error" *ngIf="error">{{ error }}</p>
-  
-    <div *ngIf="!cargando && biblioteca.length === 0">
-      <p>No tienes videojuegos aún.</p>
-    </div>
-  
-    <div class="grid" *ngIf="biblioteca.length > 0">
-      <div class="card" *ngFor="let item of biblioteca">
-        <h3>
-            <a
-              [routerLink]="['/videojuego', item.videojuego.idJuego]"
-              class="titulo-link"
-            >
-              {{ item.videojuego.titulo }}
-            </a>
-          </h3>
-          
-  
-        <p class="descripcion">
-          {{ item.videojuego.descripcion }}
-        </p>
-  
-        <p class="precio">
-          Q{{ item.videojuego.precio }}
-        </p>
-  
-        <span
-          class="badge propio"
-          *ngIf="item.esPropio"
-        >
-          Propio
-        </span>
-  
-        <span
-          class="badge compartido"
-          *ngIf="!item.esPropio"
-        >
-          Compartido
-        </span>
-      </div>
+
+  <h2>📚 Mi Biblioteca (Comprados)</h2>
+
+  <p *ngIf="cargando">Cargando biblioteca...</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div *ngIf="!cargando && biblioteca.length === 0">
+    <p>No tienes videojuegos comprados.</p>
+  </div>
+
+  <div class="grid" *ngIf="biblioteca.length > 0">
+    <div class="card" *ngFor="let item of biblioteca">
+
+      <h3>
+        <a [routerLink]="['/videojuego', item.videojuego.idJuego]">
+          {{ item.videojuego.titulo }}
+        </a>
+      </h3>
+
+      <p class="descripcion">{{ item.videojuego.descripcion }}</p>
+      <p class="precio">Q{{ item.videojuego.precio }}</p>
+
+      <span class="badge propio" *ngIf="item.esPropio">Propio</span>
+      <span class="badge compartido" *ngIf="!item.esPropio">Compartido</span>
+      <span class="badge instalado" *ngIf="item.instalado">Instalado</span>
+
+      <button
+        class="instalar"
+        (click)="item.instalado ? desinstalarJuego(item) : instalarJuego(item)">
+        {{ item.instalado ? 'Desinstalar' : 'Instalar' }}
+      </button>
     </div>
   </div>
-  
+
+  <!-- ===================== -->
+
+  <h2 class="separador">🎮 Juegos Instalados</h2>
+
+  <div *ngIf="juegosInstalados.length === 0">
+    <p>No tienes juegos instalados.</p>
+  </div>
+
+  <div class="grid" *ngIf="juegosInstalados.length > 0">
+    <div class="card" *ngFor="let juego of juegosInstalados">
+
+      <h3>
+        <a [routerLink]="['/videojuego', juego.idJuego]">
+          {{ juego.titulo }}
+        </a>
+      </h3>
+
+      <span class="badge instalado">Instalado</span>
+
+      <button class="instalar" (click)="desinstalarJuegoDirecto(juego)">
+        Desinstalar
+      </button>
+    </div>
+  </div>
+
+</div>
+

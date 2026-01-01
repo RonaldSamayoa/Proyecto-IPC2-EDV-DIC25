@@ -3,6 +3,7 @@ import com.mycompany.gestion.juegos.dao.*;
 import com.mycompany.gestion.juegos.model.InstalacionJuego;
 
 import java.util.Date;
+import java.util.List;
 /**
  *
  * @author ronald
@@ -86,4 +87,7 @@ public class InstalacionJuegoService {
         return instalacionDAO.usuarioTieneInstalado(idUsuario, idJuego);
     }
     
+    public List<InstalacionJuego> listarInstaladosPorUsuario(int idUsuario) {
+        return instalacionDAO.listarInstaladosPorUsuario(idUsuario);
+    }
 }

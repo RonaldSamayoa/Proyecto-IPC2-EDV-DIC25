@@ -3,7 +3,9 @@ import com.mycompany.gestion.juegos.model.InstalacionJuego;
 import com.mycompany.gestion.juegos.resources.DBConnectionSingleton;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 /**
  *
  * @author ronald
@@ -225,4 +227,37 @@ public class InstalacionJuegoDAO {
         }
     }
 
+    public List<InstalacionJuego> listarInstaladosPorUsuario(int idUsuario) {
+        String sql = """
+            SELECT *
+            FROM instalacion_juego
+            WHERE id_usuario = ?
+              AND fecha_desinstalacion IS NULL
+        """;
+
+        List<InstalacionJuego> lista = new ArrayList<>();
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                InstalacionJuego i = new InstalacionJuego();
+                i.setIdInstalacion(rs.getInt("id_instalacion"));
+                i.setIdUsuario(rs.getInt("id_usuario"));
+                i.setIdJuego(rs.getInt("id_juego"));
+                i.setFechaInstalacion(rs.getTimestamp("fecha_instalacion"));
+                i.setFechaDesinstalacion(rs.getTimestamp("fecha_desinstalacion"));
+                i.setEsPrestado(rs.getBoolean("es_prestado"));
+                lista.add(i);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al listar juegos instalados");
+        }
+
+        return lista;
+    }
 }
