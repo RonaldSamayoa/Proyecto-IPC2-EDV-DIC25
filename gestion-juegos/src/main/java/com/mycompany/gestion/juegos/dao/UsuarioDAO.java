@@ -150,7 +150,6 @@ public class UsuarioDAO {
             FROM usuario
             WHERE nickname LIKE ?
               AND estado = true
-            LIMIT 10
         """;
 
         List<Usuario> lista = new ArrayList<>();
