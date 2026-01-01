@@ -11,12 +11,13 @@ import { Videojuego } from '../models/videojuego.model';
 import { BibliotecaItem } from '../models/biblioteca.model';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../models/categoria.model';
+import { NavbarGamerComponent } from '../shared/navbar-gamer/navbar-gamer.component';
 
 
 @Component({
   selector: 'app-tienda',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NavbarGamerComponent],
   templateUrl: './tienda.component.html',
   styleUrls: ['./tienda.component.css']
 })
