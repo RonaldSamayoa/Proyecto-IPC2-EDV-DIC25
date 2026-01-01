@@ -43,9 +43,10 @@ export const routes: Routes = [
 
   { path: 'grupo/:idGrupo/biblioteca', component: GrupoBibliotecaComponent, canActivate: [AuthGuard, GamerGuard]},
   
-  {path: 'buscar',loadComponent: () => import('./buscar/buscar.component').then(m => m.BuscarComponent)},
+  {path: 'buscar',loadComponent: () => import('./buscar/buscar.component').then(m => m.BuscarComponent), canActivate: [AuthGuard]},
   
-
+  {path: 'perfil/:id', loadComponent: () => import('./perfil-usuario/perfil-usuario.component').then(m => m.PerfilUsuarioComponent), canActivate: [AuthGuard]},
+  
   // wildcard por seguridad
   { path: '**', redirectTo: '' }
 

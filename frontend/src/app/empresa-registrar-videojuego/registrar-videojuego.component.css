@@ -1,0 +1,64 @@
+.registro-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #1c1c2b;
+    color: #fff;
+    border-radius: 12px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-top: 12px;
+    font-size: 14px;
+  }
+  
+  input,
+  textarea,
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background: #2ecc71;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background: #999;
+    cursor: not-allowed;
+  }
+  
+  .success {
+    margin-top: 15px;
+    color: #2ecc71;
+    text-align: center;
+  }
+  
+  .error {
+    margin-top: 15px;
+    color: #e74c3c;
+    text-align: center;
+  }
+  

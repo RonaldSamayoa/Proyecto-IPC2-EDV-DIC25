@@ -1,0 +1,43 @@
+.dashboard-container {
+    padding: 20px;
+    color: #fff;
+  }
+  
+  .card {
+    background: #1c1c2b;
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .card input,
+  .card textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+  }
+  
+  button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #2980b9;
+  }
+  
+  .error {
+    color: #e74c3c;
+  }
+  
+  .exito {
+    color: #2ecc71;
+  }
+  
+  

@@ -1,13 +1,48 @@
 <app-navbar-empresa></app-navbar-empresa>
 
-<div class="container">
-  <h2>Dashboard Empresa</h2>
-  <p>Panel de administración de la empresa.</p>
+<div class="dashboard-container">
 
-  <div class="actions">
-    <button>Mis juegos</button>
-    <button>Reportes</button>
+  <h2>🏢 Panel de Empresa</h2>
+
+  <div class="card info">
+    <h3>Información del usuario</h3>
+    <p><strong>ID Usuario:</strong> {{ usuario?.idUsuario }}</p>
+    <p><strong>Nickname:</strong> {{ usuario?.nickname }}</p>
+    <p><strong>Correo:</strong> {{ usuario?.correo }}</p>
+    <p><strong>Rol:</strong> {{ usuario?.rol }}</p>
   </div>
+
+  <div class="card">
+    <h3>🎮 Registrar nuevo videojuego</h3>
+
+    <input type="text" placeholder="Título"
+           [(ngModel)]="videojuego.titulo">
+
+    <textarea placeholder="Descripción"
+              [(ngModel)]="videojuego.descripcion"></textarea>
+
+    <input type="number" placeholder="Precio"
+           [(ngModel)]="videojuego.precio">
+
+    <input type="text" placeholder="Requisitos mínimos"
+           [(ngModel)]="videojuego.requisitosMinimos">
+
+    <input type="text" placeholder="Clasificación edad"
+           [(ngModel)]="videojuego.clasificacionEdad">
+
+    <input type="date"
+           [(ngModel)]="videojuego.fechaLanzamiento">
+
+    <button (click)="registrarJuego()">
+      Registrar juego
+    </button>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </div>
+
 </div>
+
+
+
 
   

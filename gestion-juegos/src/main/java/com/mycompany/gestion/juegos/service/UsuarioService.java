@@ -169,5 +169,20 @@ public class UsuarioService {
 
         return List.of(dto);
     }
+    
+    public UsuarioResponseDTO obtenerPerfil(int idUsuario) {
+        Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
+        if (usuario == null) return null;
 
+        UsuarioResponseDTO dto = new UsuarioResponseDTO();
+        dto.setIdUsuario(usuario.getIdUsuario());
+        dto.setNickname(usuario.getNickname());
+        dto.setCorreo(usuario.getCorreo());
+        dto.setFechaNacimiento(usuario.getFechaNacimiento());
+        dto.setPais(usuario.getPais());
+        dto.setRol(usuario.getRol());
+        dto.setBibliotecaPublica(usuario.isBibliotecaPublica());
+
+        return dto;
+    }
 }

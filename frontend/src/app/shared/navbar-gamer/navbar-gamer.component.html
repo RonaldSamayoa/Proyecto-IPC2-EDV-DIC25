@@ -8,6 +8,12 @@
       <li><a routerLink="/cartera">Cartera</a></li>
       <li><a routerLink="/familia">Grupo Familiar</a></li>
       <li><a routerLink="/buscar">Buscar</a></li>
+      <li *ngIf="authService.obtenerSesion() as usuario">
+        <a [routerLink]="['/perfil', usuario.idUsuario]">
+          Mi Perfil
+        </a>
+      </li>
+      
     </ul>
   
     <button class="logout" (click)="cerrarSesion()">Salir</button>

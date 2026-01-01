@@ -1,0 +1,40 @@
+<div class="registro-container">
+    <h2>🎮 Registrar Videojuego</h2>
+  
+    <form (ngSubmit)="registrar()">
+  
+      <label>Título</label>
+      <input type="text" [(ngModel)]="videojuego.titulo" name="titulo" required />
+  
+      <label>Descripción</label>
+      <textarea [(ngModel)]="videojuego.descripcion" name="descripcion"></textarea>
+  
+      <label>Precio (Q)</label>
+      <input type="number" [(ngModel)]="videojuego.precio" name="precio" required />
+  
+      <label>Requisitos mínimos</label>
+      <input type="text" [(ngModel)]="videojuego.requisitosMinimos" name="requisitos" />
+  
+      <label>Clasificación de edad</label>
+      <select [(ngModel)]="videojuego.clasificacionEdad" name="clasificacion">
+        <option value="">Seleccione</option>
+        <option value="E">E</option>
+        <option value="E10+">E10+</option>
+        <option value="T">T</option>
+        <option value="M">M</option>
+        <option value="18+">18+</option>
+      </select>
+  
+      <label>Fecha de lanzamiento</label>
+      <input type="date" [(ngModel)]="videojuego.fechaLanzamiento" name="fecha" />
+  
+      <button type="submit" [disabled]="cargando">
+        {{ cargando ? 'Registrando...' : 'Registrar videojuego' }}
+      </button>
+  
+    </form>
+  
+    <p class="success" *ngIf="mensaje">{{ mensaje }}</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </div>
+  

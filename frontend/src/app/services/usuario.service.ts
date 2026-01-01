@@ -25,4 +25,12 @@ export class UsuarioService {
       { params: { q: texto } }
     );
   }
+
+  getPerfil(idUsuario: number) {
+    return this.http.get<any>(
+      `${ApiConfig.BASE_URL}/usuarios/perfil`,
+      { params: { idUsuario } }
+    );
+  }
+  
 }

@@ -1,4 +1,5 @@
 com/mycompany/gestion/juegos/service/BibliotecaService.class
+com/mycompany/gestion/juegos/controller/EmpresaPorUsuarioController.class
 com/mycompany/gestion/juegos/dao/InstalacionJuegoDAO.class
 com/mycompany/gestion/juegos/service/GrupoUsuarioService.class
 com/mycompany/gestion/juegos/controller/CompraController.class
@@ -9,6 +10,7 @@ com/mycompany/gestion/juegos/dao/CalificacionDAO.class
 com/mycompany/gestion/juegos/controller/InstalacionJuegoController.class
 com/mycompany/gestion/juegos/model/Videojuego.class
 com/mycompany/gestion/juegos/controller/VideojuegoController.class
+com/mycompany/gestion/juegos/controller/PerfilUsuarioController.class
 com/mycompany/gestion/juegos/service/EmpresaService.class
 com/mycompany/gestion/juegos/controller/BibliotecaController.class
 com/mycompany/gestion/juegos/dao/ConfiguracionComisionDAO.class

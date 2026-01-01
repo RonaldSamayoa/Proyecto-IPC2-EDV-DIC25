@@ -1,0 +1,15 @@
+<div *ngIf="usuario">
+    <h2>👤 Perfil de {{ usuario.nickname }}</h2>
+  
+    
+    <p><b>ID:</b> {{ usuario.idUsuario }}</p>
+    <p><b>Correo:</b> {{ usuario.correo }}</p>
+    <p><b>País:</b> {{ usuario.pais }}</p>
+    <p><b>Rol:</b> {{ usuario.rol }}</p>
+    <p><b>Biblioteca pública:</b>
+      {{ usuario.bibliotecaPublica ? 'Sí' : 'No' }}
+    </p>
+  </div>
+  
+  <p class="error" *ngIf="error">{{ error }}</p>
+  

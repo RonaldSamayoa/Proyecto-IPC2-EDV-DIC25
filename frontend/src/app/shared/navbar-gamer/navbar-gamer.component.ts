@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
 export class NavbarGamerComponent {
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService, 
     private router: Router
   ) {}
 
@@ -22,3 +22,5 @@ export class NavbarGamerComponent {
     this.router.navigate(['']);
   }
 }
+
+

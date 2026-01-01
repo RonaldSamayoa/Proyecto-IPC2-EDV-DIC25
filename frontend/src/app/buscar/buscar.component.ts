@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService, UsuarioBusqueda } from '../services/usuario.service';
 import { Router } from '@angular/router';
+import { NavbarGamerComponent } from '../shared/navbar-gamer/navbar-gamer.component';
 
 @Component({
   selector: 'app-buscar',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NavbarGamerComponent],
   templateUrl: './buscar.component.html',
   styleUrls: ['./buscar.component.css']
 })
