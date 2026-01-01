@@ -46,10 +46,12 @@ export class RegistroEmpresaComponent {
         this.cargando = false;
         alert('Empresa registrada correctamente. Ahora puedes iniciar sesión.');
       },
-      error: () => {
+      error: (err) => {
+        console.error(err);
         this.cargando = false;
         alert('Error al registrar la empresa');
       }
+      
     });
   }
 }
