@@ -43,6 +43,7 @@ export const routes: Routes = [
 
   { path: 'grupo/:idGrupo/biblioteca', component: GrupoBibliotecaComponent, canActivate: [AuthGuard, GamerGuard]},
   
+  {path: 'buscar',loadComponent: () => import('./buscar/buscar.component').then(m => m.BuscarComponent)},
   
 
   // wildcard por seguridad

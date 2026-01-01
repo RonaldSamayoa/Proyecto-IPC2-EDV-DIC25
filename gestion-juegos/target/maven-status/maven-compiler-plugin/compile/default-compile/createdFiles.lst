@@ -50,6 +50,7 @@ com/mycompany/gestion/juegos/model/Categoria.class
 com/mycompany/gestion/juegos/dao/DetalleCompraDAO.class
 com/mycompany/gestion/juegos/JakartaRestConfiguration.class
 com/mycompany/gestion/juegos/dao/VideojuegoDAO.class
+com/mycompany/gestion/juegos/controller/UsuarioBusquedaController.class
 com/mycompany/gestion/juegos/dao/EmpresaDAO.class
 com/mycompany/gestion/juegos/service/JuegoCategoriaService.class
 com/mycompany/gestion/juegos/controller/GrupoFamiliarController.class

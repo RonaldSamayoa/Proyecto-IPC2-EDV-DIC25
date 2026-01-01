@@ -1,0 +1,33 @@
+<div class="buscar-container">
+
+    <h2>🔍 Buscar usuarios</h2>
+  
+    <input
+      type="text"
+      placeholder="Buscar por nickname "
+      [(ngModel)]="termino"
+      (input)="buscar()"
+    />
+  
+    <p *ngIf="cargando">Buscando...</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
+  
+    <div class="resultados">
+  
+      <div
+        class="card"
+        *ngFor="let u of usuarios"
+        (click)="verPerfil(u)"
+      >
+        <h3>{{ u.nickname }}</h3>
+        <p>{{ u.correo }}</p>
+        <span>{{ u.pais }} · {{ u.rol }}</span>
+      </div>
+  
+      <p *ngIf="!cargando && usuarios.length === 0 && termino.length >= 2">
+        No se encontraron usuarios
+      </p>
+  
+    </div>
+  </div>
+  

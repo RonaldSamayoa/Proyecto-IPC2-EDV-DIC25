@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/usuarios")
+@WebServlet("/usuarios/*")
 public class UsuarioController extends HttpServlet{
     private UsuarioService usuarioService;
     private ObjectMapper mapper;
@@ -39,16 +39,41 @@ public class UsuarioController extends HttpServlet{
             loginUsuario(req, resp);
         } else if ("crear-admin".equalsIgnoreCase(accion)) {
             crearAdmin(req, resp);
-        }
-        else {
+        }  else if ("crear-empresa".equalsIgnoreCase(accion)) {
+            crearEmpresa(req, resp);
+        } else {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write("Acción no válida.");
         }
     }
+    
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
 
-    /**
-     * Registra un nuevo usuario en el sistema.
-     */
+        String pathInfo = req.getPathInfo(); // /{id}
+        if (pathInfo == null || pathInfo.equals("/")) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        int idUsuario = Integer.parseInt(pathInfo.substring(1));
+
+        Usuario cambios = mapper.readValue(req.getInputStream(), Usuario.class);
+
+        boolean ok = usuarioService.actualizarPerfilParcial(idUsuario, cambios);
+
+        if (!ok) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write("No se pudo actualizar el perfil");
+            return;
+        }
+
+        resp.setStatus(HttpServletResponse.SC_OK);
+        resp.getWriter().write("Perfil actualizado correctamente");
+    }
+
+    //Registra un nuevo usuario en el sistema
     private void registrarUsuario(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
@@ -65,9 +90,7 @@ public class UsuarioController extends HttpServlet{
         resp.getWriter().write("Usuario registrado correctamente.");
     }
 
-    /**
-     * Autentica a un usuario mediante correo y contraseña.
-     */
+    //Autentica a un usuario mediante correo y contraseña
     private void loginUsuario(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
@@ -109,9 +132,27 @@ public class UsuarioController extends HttpServlet{
         resp.getWriter().write("Administrador creado correctamente.");
     }
 
-    /**
-     * Convierte un objeto Usuario en un DTO seguro para la respuesta.
-     */
+    private void crearEmpresa(HttpServletRequest req, HttpServletResponse resp)
+        throws IOException {
+        Usuario empresa = mapper.readValue(req.getInputStream(), Usuario.class);
+
+        empresa.setRol(RolUsuario.EMPRESA);
+        empresa.setBibliotecaPublica(false);
+        empresa.setEstado(true);
+
+        boolean ok = usuarioService.registrarEmpresa(empresa);
+
+        if (!ok) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write("No se pudo crear el usuario empresa.");
+            return;
+        }
+
+        resp.setStatus(HttpServletResponse.SC_CREATED);
+        resp.getWriter().write("Usuario empresa creado correctamente.");
+    }
+
+    //Convierte un objeto Usuario en un DTO seguro para la respuesta
     private UsuarioResponseDTO convertirAResponse(Usuario usuario) {
 
         UsuarioResponseDTO dto = new UsuarioResponseDTO();

@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author ronald
@@ -38,11 +40,45 @@ public class UsuarioDAO {
             return false;
         }
     }
+    
+    public boolean actualizarUsuario(Usuario usuario) {
+        String sql = """
+            UPDATE usuario
+            SET nickname = ?,
+                password = ?,
+                correo = ?,
+                fecha_nacimiento = ?,
+                pais = ?,
+                imagen_perfil = ?,
+                biblioteca_publica = ?
+            WHERE id_usuario = ?
+              AND estado = true
+        """;
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, usuario.getNickname());
+            ps.setString(2, usuario.getPassword());
+            ps.setString(3, usuario.getCorreo());
+            ps.setDate(4, new java.sql.Date(usuario.getFechaNacimiento().getTime()));
+            ps.setString(5, usuario.getPais());
+            ps.setBytes(6, usuario.getImagenPerfil());
+            ps.setBoolean(7, usuario.isBibliotecaPublica());
+            ps.setInt(8, usuario.getIdUsuario());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar usuario: " + e.getMessage());
+            return false;
+        }
+    }
 
     //Busca un usuario activo a partir de su correo electrónico
     public Usuario buscarPorCorreo(String correo) {
 
-        String sql = "SELECT * FROM usuario WHERE correo = ? AND estado = true";
+        String sql = "SELECT * FROM usuario WHERE correo LIKE ? AND estado = true";
 
         try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -88,7 +124,7 @@ public class UsuarioDAO {
     //Busca un usuario activo por su nickname
     public Usuario buscarPorNickname(String nickname) {
 
-        String sql = "SELECT * FROM usuario WHERE nickname = ? AND estado = true";
+        String sql = "SELECT * FROM usuario WHERE nickname LIKE ? AND estado = true";
 
         try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -106,6 +142,34 @@ public class UsuarioDAO {
         }
 
         return null;
+    }
+    
+    public List<Usuario> buscarUsuariosPorNickname(String nickname) {
+        String sql = """
+            SELECT *
+            FROM usuario
+            WHERE nickname LIKE ?
+              AND estado = true
+            LIMIT 10
+        """;
+
+        List<Usuario> lista = new ArrayList<>();
+
+        try (Connection conn = DBConnectionSingleton.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + nickname + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                lista.add(mapearUsuario(rs));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al buscar usuarios por nickname");
+        }
+
+        return lista;
     }
 
     //Inactiva lógicamente un usuario del sistema
